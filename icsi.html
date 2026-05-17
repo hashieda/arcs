@@ -9,6 +9,23 @@
 .view-tab { text-decoration: none; }
 .view-tab.active { pointer-events: none; }
 </style>
+<script>
+/* 認証チェック: 未ログインなら auth.html へリダイレクト */
+(function(){
+  const SESSION_KEY  = 'arcs_auth';
+  const PASSWORD_HASH = '6dd2412f17349521ad825ba171668baa163861654895c5d4f9620ea375ffe8be';
+  const SESSION_TTL  = 8 * 60 * 60 * 1000;
+  try {
+    const saved = sessionStorage.getItem(SESSION_KEY);
+    if (!saved) throw new Error('no session');
+    const { hash, ts } = JSON.parse(saved);
+    if (hash !== PASSWORD_HASH || Date.now() - ts >= SESSION_TTL) throw new Error('expired');
+  } catch(_) {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.replace('auth.html');
+  }
+})();
+</script>
 </head>
 <body>
 

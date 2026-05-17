@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCS — アクセス認証</title>
+<style>
+  /* ── リセット ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── 変数 ── */
+  :root {
+    --navy:      #0F172A;
+    --navy-mid:  #1E3A5F;
+    --blue:      #2563EB;
+    --blue-light:#3B82F6;
+    --accent:    #60A5FA;
+    --text:      #F1F5F9;
+    --text-sub:  #94A3B8;
+    --border:    rgba(148,163,184,0.15);
+    --card-bg:   rgba(15,23,42,0.85);
+    --error:     #FCA5A5;
+    --error-bg:  rgba(220,38,38,0.15);
+  }
+
+  /* ── 背景 ── */
+  html, body {
+    height: 100%;
+    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  }
+  body {
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* グリッドライン背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  /* 中央グロー */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(37,99,235,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── カード ── */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 420px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px 40px 40px;
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(37,99,235,0.1),
+      0 24px 64px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── ロゴ・タイトル ── */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--navy-mid) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 0 16px rgba(37,99,235,0.4);
+  }
+  .logo-text { line-height: 1.2; }
+  .logo-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+  .logo-sub {
+    font-size: 10px;
+    color: var(--text-sub);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── 見出し ── */
+  .heading {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  /* ── フォーム ── */
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-sub);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .field input {
+    width: 100%;
+    padding: 11px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  }
+  .field input::placeholder { color: rgba(148,163,184,0.4); }
+
+  /* ── エラー ── */
+  .error-msg {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--error-bg);
+    border: 1px solid rgba(220,38,38,0.3);
+    border-radius: 6px;
+    color: var(--error);
+    font-size: 12px;
+    margin-bottom: 16px;
+    animation: shake 0.3s ease;
+  }
+  .error-msg.show { display: flex; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+  }
+
+  /* ── ボタン ── */
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--blue) 0%, #1D4ED8 100%);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+  }
+  .btn:hover  { opacity: 0.92; }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── フッター ── */
+  .footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: rgba(148,163,184,0.4);
+    text-align: center;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ローディングスピナー ── */
+  .btn.loading::after {
+    content: '';
+    display: inline-block;
+    width: 12px; height: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── 成功アニメーション ── */
+  .card.success {
+    border-color: rgba(34,197,94,0.3);
+    box-shadow:
+      0 0 0 1px rgba(34,197,94,0.15),
+      0 24px 64px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="logo">
+    <div class="logo-mark">🔬</div>
+    <div class="logo-text">
+      <div class="logo-title">ARCS Inc.</div>
+      <div class="logo-sub">Medical AI Schedule</div>
+    </div>
+  </div>
+
+  <div class="heading">アクセス認証</div>
+
+  <form id="auth-form" onsubmit="return false;">
+    <div class="field">
+      <label>パスワード</label>
+      <input type="password" id="password-input"
+             placeholder="パスワードを入力"
+             autocomplete="current-password"
+             autofocus>
+    </div>
+
+    <div class="error-msg" id="error-msg">
+      <span>⚠</span>
+      <span>パスワードが正しくありません</span>
+    </div>
+
+    <button class="btn" id="login-btn" type="submit">
+      アクセスする
+    </button>
+  </form>
+
+  <div class="footer">
+    関係者外秘 ｜ ARCS Inc.<br>
+    不正アクセスは禁止されています
+  </div>
+</div>
+
+<script>
+/* =============================================================
+   パスワード認証（GitHub Pages用 JS実装）
+
+   【パスワード変更方法】
+   1. 新しいパスワードのSHA-256ハッシュを取得:
+      - ブラウザのコンソールで以下を実行:
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('新しいパスワード'));
+        console.log([...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''));
+   2. 下の PASSWORD_HASH を置き換える
+
+   デフォルトパスワード: arcs2026
+   ============================================================= */
+
+  const PASSWORD_HASH = '6dd2412f17349521ad825ba171668baa163861654895c5d4f9620ea375ffe8be';
+  const SESSION_KEY   = 'arcs_auth';
+  const SESSION_TTL   = 8 * 60 * 60 * 1000; // 8時間（ms）
+  const REDIRECT_TO   = 'index.html';
+
+  /* ── セッション確認（既にログイン済みなら即リダイレクト） ── */
+  (function checkSession() {
+    try {
+      const saved = sessionStorage.getItem(SESSION_KEY);
+      if (!saved) return;
+      const { hash, ts } = JSON.parse(saved);
+      if (hash === PASSWORD_HASH && Date.now() - ts < SESSION_TTL) {
+        location.replace(REDIRECT_TO);
+      } else {
+        sessionStorage.removeItem(SESSION_KEY);
+      }
+    } catch (_) {
+      sessionStorage.removeItem(SESSION_KEY);
+    }
+  })();
+
+  /* ── SHA-256 ハッシュ計算 ── */
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest(
+      'SHA-256',
+      new TextEncoder().encode(str)
+    );
+    return [...new Uint8Array(buf)]
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  /* ── ログイン処理 ── */
+  const form     = document.getElementById('auth-form');
+  const input    = document.getElementById('password-input');
+  const errorMsg = document.getElementById('error-msg');
+  const btn      = document.getElementById('login-btn');
+  const card     = document.getElementById('card');
+
+  let attempts = 0;
+  let lockedUntil = 0;
+
+  form.addEventListener('submit', async () => {
+    // ロックアウト確認
+    if (Date.now() < lockedUntil) {
+      const remaining = Math.ceil((lockedUntil - Date.now()) / 1000);
+      showError(`${remaining}秒後に再試行してください`);
+      return;
+    }
+
+    const pw = input.value;
+    if (!pw) return;
+
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.textContent = '確認中';
+    errorMsg.classList.remove('show');
+
+    // 意図的に少し待つ（総当たり対策）
+    await new Promise(r => setTimeout(r, 600));
+
+    const hash = await sha256(pw);
+
+    if (hash === PASSWORD_HASH) {
+      // 認証成功
+      attempts = 0;
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+        hash, ts: Date.now()
+      }));
+      card.classList.add('success');
+      btn.textContent = '✓ 認証完了';
+      btn.classList.remove('loading');
+      await new Promise(r => setTimeout(r, 500));
+      location.replace(REDIRECT_TO);
+
+    } else {
+      // 認証失敗
+      attempts++;
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.textContent = 'アクセスする';
+      input.value = '';
+      input.focus();
+
+      // 5回失敗でロックアウト（30秒）
+      if (attempts >= 5) {
+        lockedUntil = Date.now() + 30_000;
+        attempts = 0;
+        showError('試行回数が多すぎます。30秒後に再試行してください');
+      } else {
+        showError('パスワードが正しくありません');
+      }
+    }
+  });
+
+  function showError(msg) {
+    errorMsg.querySelector('span:last-child').textContent = msg;
+    errorMsg.classList.add('show');
+    // アニメーションリセット
+    errorMsg.style.animation = 'none';
+    requestAnimationFrame(() => {
+      errorMsg.style.animation = '';
+    });
+  }
+
+  // Enterキー対応
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') form.dispatchEvent(new Event('submit'));
+  });
+</script>
+</body>
+</html>
