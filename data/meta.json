@@ -1,0 +1,56 @@
+{
+  "_comment": "全体設定。月index 0 = 2026/04、23 = 2028/03。todayDate/todayMonthIdx を毎月更新する。",
+  "title": "医療AI製品スケジュール — 卵子AI／精子AI／ICSI自動化",
+  "periodLabel": "2026年4月〜2028年3月（24ヶ月）",
+  "todayDate": "2026-05-10",
+  "todayMonthIdx": 1,
+
+  "monthLabels": [
+    "4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2", "3",
+    "4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2", "3"
+  ],
+  "yearLabels": ["2026年度", "2027年度"],
+
+  "_comment_events": "type: default(青) / highlight(赤＝重点判断) / pink(経営判断)。monthIdx をキーに配列で複数指定可。",
+  "events": {
+    "1":  [{ "text": "★卵子AI仕様確定", "type": "default" }],
+    "2":  [
+      { "text": "★精子AI海外進出有無決定", "type": "default" },
+      { "text": "★精子評価AI（RUO）販売実績創出", "type": "highlight" },
+      { "text": "★RUO販売意思決定（仕様変更判断含む）", "type": "pink" }
+    ],
+    "4":  [{ "text": "★精子AI製品管理方法決定（国内と海外版）", "type": "pink" }],
+    "6":  [{ "text": "★先進医療適用判断", "type": "pink" }],
+    "8":  [
+      { "text": "★卵子AI開発完了", "type": "default" },
+      { "text": "★ICSIプロトタイプ完成", "type": "default" },
+      { "text": "★精子AI先進医療認定", "type": "default" }
+    ],
+    "11": [
+      { "text": "★精子AI有用性検証完了", "type": "default" },
+      { "text": "★NEDO終了", "type": "default" },
+      { "text": "★精子AI導入実績達成", "type": "pink" }
+    ],
+    "15": [{ "text": "★売上 5900万", "type": "default" }],
+    "19": [
+      { "text": "★精子AIプロトタイプ完成", "type": "default" },
+      { "text": "★ICSI開発完了", "type": "default" }
+    ],
+    "23": [{ "text": "★精子AI薬事申請", "type": "default" }]
+  },
+
+  "_comment_summary": "サマリは自動集計（risk/delayから生成）と手動の併用。手動上書きしたい場合は manualSummary を埋める。",
+  "manualSummary": {
+    "actions": [
+      "<strong>卵子AI</strong>：仕様確定（5月）、要件定義完了 → 開発・テスト着手判断",
+      "<strong>精子AI</strong>：海外進出有無決定（5月）／RUO販売意思決定（5月／仕様変更含む）",
+      "<strong>ICSI自動化</strong>：PMDA初回相談（5月）／QMS体制構築着手"
+    ],
+    "warnings": [],
+    "dones": [
+      "<strong>全体</strong>：2026年度〜2027年度の24ヶ月スケジュール骨子合意",
+      "<strong>精子AI</strong>：RUO販売計画／RUOニーズ調査の方針整理（4月）",
+      "<strong>卵子AI</strong>：要件定義 4月内完了予定で進行中"
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=2200">
+<title>ICSI自動化 詳細スケジュール</title>
+<link rel="stylesheet" href="assets/gantt.css">
+<style>
+.view-tab { text-decoration: none; }
+.view-tab.active { pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>🔬 — ICSI自動化 詳細スケジュール</h1>
+    <div class="subtitle">2026年4月〜2029年12月（45ヶ月）｜FY29 Q3 唯一の現行管理線（v37）｜更新日：<span id="update-date">—</span></div>
+  </div>
+  <div class="filter-bar">
+    <span>絞込:</span>
+    <button class="filter-btn active" data-filter="all">すべて</button>
+    <button class="filter-btn" data-filter="red">🔴 遅延</button>
+    <button class="filter-btn" data-filter="yellow">🟡 警戒</button>
+    <button class="filter-btn" data-filter="green">🟢 順調</button>
+    <button class="filter-btn" data-filter="gray">⚪ 未確定</button>
+  </div>
+</div>
+
+<div class="view-tabs">
+  <a class="view-tab" href="index.html">全体ビュー</a>
+  <a class="view-tab" href="ranshi.html">🥚 卵子AI 詳細</a>
+  <a class="view-tab" href="seishi.html">🧬 精子AI 詳細</a>
+  <a class="view-tab active" href="icsi.html">🔬 ICSI自動化 詳細</a>
+</div>
+
+<div class="summary">
+  <div class="summary-card action"><h3>📌 直近の要判断</h3><ul id="action-list"></ul></div>
+  <div class="summary-card warning"><h3>⚠️ 警戒テーマ</h3><ul id="warning-list"></ul></div>
+  <div class="summary-card done"><h3>✅ 直近の進捗トピック</h3><ul id="done-list"></ul></div>
+</div>
+<div class="summary" style="grid-template-columns:1fr;">
+  <div class="summary-card delay" id="delay-card" style="display:none;">
+    <h3>⏰ 遅延中テーマ</h3><ul id="delay-list"></ul>
+  </div>
+</div>
+
+<div class="gantt-container" id="gantt-icsi"></div>
+
+<div class="legend">
+  <div class="legend-section">
+    <h4>カテゴリ別フェーズバー色</h4>
+    <div class="legend-items">
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-sales-bg)"></span>営業／事業</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-yakuji-bg)"></span>薬事</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-dev-bg)"></span>開発</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-clinical-bg)"></span>臨床開発</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-pmda-bg)"></span>PMDA相談</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-qms-bg)"></span>QMS／品証</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--cat-launch-bg)"></span>申請／リリース</div>
+      <div class="legend-item"><span class="legend-color" style="background:var(--hdr-navy)"></span>主要フェーズ</div>
+    </div>
+  </div>
+  <div class="legend-section">
+    <h4>ステータス信号</h4>
+    <div class="legend-items">
+      <div class="legend-item"><span class="signal-sm green"></span>順調</div>
+      <div class="legend-item"><span class="signal-sm yellow"></span>警戒</div>
+      <div class="legend-item"><span class="signal-sm red"></span>遅延</div>
+      <div class="legend-item"><span class="signal-sm blue"></span>進行中</div>
+      <div class="legend-item"><span class="signal-sm gray"></span>未着手・未確定</div>
+    </div>
+  </div>
+  <div class="legend-section">
+    <h4>遅延・リスク表示</h4>
+    <div class="legend-items">
+      <div class="legend-item">⏰<span style="color:#B91C1C;font-weight:700;margin-left:4px">遅延バー（赤枠）</span></div>
+      <div class="legend-item"><span class="legend-color" style="background:transparent;border:1px dashed #94A3B8"></span>当初計画（ゴースト）</div>
+      <div class="legend-item"><span class="risk-badge high" style="font-size:9px">⚠ リスク高</span></div>
+      <div class="legend-item"><span class="risk-badge medium" style="font-size:9px">△ リスク中</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ops-note">
+  <strong>📋 管理線: FY29 Q3（v37）|</strong>
+  <code>data/icsi_detail.json</code> を編集。遅延は <code>"status":"red"</code> + <code>"delayReason"</code>、リスクは <code>"riskLevel"</code> + <code>"riskComment"</code>。
+  D/Aゲート未達→担当者が即日CEO報告。FY29 Q3成立不能確定時のみBoard報告（2週間以内）。変更にはCEO発議＋Board決議必須。
+  <span style="float:right;opacity:0.7">💡 フェーズバーをホバーで詳細表示 | ⚠ = D/Aゲート | △ = B影響度</span>
+</div>
+
+<div class="changelog">
+  <h4>📝 更新履歴</h4>
+  <ul class="changelog-list" id="history-list"></ul>
+</div>
+
+<div class="custom-tooltip" id="custom-tooltip"></div>
+
+<script src="assets/gantt.js"></script>
+<script>
+  initView({ mode: 'detail', containerId: 'gantt-icsi', dataFile: 'data/icsi_detail.json' });
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+{
+  "_comment": "精子AI 全体ビュー用データ。詳細ビューは seishi_detail.json を使用。",
+  "name": "🧬 精子AI",
+  "headerClass": "seishi",
+  "categories": [
+    {
+      "cat": "営業",
+      "catClass": "sales",
+      "themes": [
+        {
+          "id": "seishi_sales_domestic",
+          "name": "国内販売体制構築",
+          "owner": "営業／事業",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 0, "label": "国内販売体制構築",
+              "tasks": ["初期営業計画"] }
+          ],
+          "next": "4月着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_sales_overseas",
+          "name": "海外販売体制構築",
+          "owner": "営業／事業",
+          "status": "gray",
+          "period": "2027/02 〜 2028/03",
+          "phases": [
+            { "phase": "navy", "start": 10, "end": 23, "label": "海外販売体制構築",
+              "tasks": ["海外規制調査", "販社探索", "海外向け仕様検討"] }
+          ],
+          "next": "2027/02：開始",
+          "delayReason": "",
+          "riskComment": "5月の海外進出有無決定の結果が前提。決定遅延で全体着手が後ろ倒し。",
+          "riskLevel": "watch"
+        }
+      ]
+    },
+    {
+      "cat": "薬事",
+      "catClass": "yakuji",
+      "themes": [
+        {
+          "id": "seishi_req",
+          "name": "要件定義",
+          "owner": "薬事",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 0, "label": "要件定義",
+              "tasks": ["薬事要件整理"] }
+          ],
+          "next": "4月完了",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_senshin",
+          "name": "先進医療認定取得",
+          "owner": "薬事／臨床",
+          "status": "progress",
+          "period": "2026/05 〜 2026/10",
+          "phases": [
+            { "phase": "navy", "start": 1, "end": 6, "label": "先進医療認定取得",
+              "tasks": ["先進医療会議申請", "実施機関選定"] }
+          ],
+          "next": "5月：申請準備",
+          "delayReason": "",
+          "riskComment": "PMDA相談・QMSと5月並行スタート。薬事リソースの集中に注意。",
+          "riskLevel": "watch"
+        },
+        {
+          "id": "seishi_data",
+          "name": "データ取得",
+          "owner": "臨床",
+          "status": "gray",
+          "period": "2026/10 〜 2027/03",
+          "phases": [
+            { "phase": "navy", "start": 6, "end": 11, "label": "データ取得",
+              "tasks": ["臨床データ収集", "症例登録"] }
+          ],
+          "next": "10月開始予定",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_pmda",
+          "name": "PMDA相談",
+          "owner": "薬事",
+          "status": "progress",
+          "period": "2026/05 〜 2026/10",
+          "phases": [
+            { "phase": "navy", "start": 1, "end": 6, "label": "PMDA相談",
+              "tasks": ["事前面談", "対面助言"] }
+          ],
+          "next": "5月：相談継続",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_clinical",
+          "name": "臨床性能評価試験（計画・実施・解析）",
+          "owner": "薬事／臨床",
+          "status": "gray",
+          "period": "2026/10 〜 2027/10",
+          "phases": [
+            { "phase": "navy", "start": 6, "end": 18, "label": "臨床性能評価試験（計画・実施・解析）",
+              "tasks": ["試験計画", "症例組入", "解析"] }
+          ],
+          "next": "10月：計画策定",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_qms",
+          "name": "QMS体制構築",
+          "owner": "品証",
+          "status": "progress",
+          "period": "2026/04 〜 2026/08",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 4, "label": "QMS体制構築",
+              "tasks": ["品質マニュアル整備", "手順書作成"] }
+          ],
+          "next": "4月：着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_app_doc",
+          "name": "薬事申請ドキュメンテーション",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2027/10 〜 2028/01",
+          "phases": [
+            { "phase": "navy", "start": 18, "end": 21, "label": "薬事申請ドキュメンテーション",
+              "tasks": ["STED作成", "添付資料整備"] }
+          ],
+          "next": "2027/10〜",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_yakuji_app",
+          "name": "薬事申請",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2028/02 〜 2028/03",
+          "phases": [
+            { "phase": "launch", "start": 22, "end": 23, "label": "薬事申請",
+              "tasks": ["提出", "初動対応"] }
+          ],
+          "next": "2028/02",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    },
+    {
+      "cat": "開発",
+      "catClass": "dev",
+      "themes": [
+        {
+          "id": "seishi_proto",
+          "name": "プロトタイプ開発",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/04 〜 2026/10",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 6, "label": "プロトタイプ開発",
+              "tasks": ["コア機能実装", "UI試作", "内部評価"] }
+          ],
+          "next": "4月：着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_data_collect",
+          "name": "データ収集・有用性検証",
+          "owner": "開発／臨床",
+          "status": "progress",
+          "period": "2026/05 〜 2026/09",
+          "phases": [
+            { "phase": "navy", "start": 1, "end": 5, "label": "データ収集・有用性検証",
+              "tasks": ["データ収集", "有用性指標設計", "中間検証"] }
+          ],
+          "next": "5月：開始",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "seishi_md_dev",
+          "name": "医療機器設計開発プロセス",
+          "owner": "開発／品証",
+          "status": "gray",
+          "period": "2026/11 〜 2028/03",
+          "phases": [
+            { "phase": "navy", "start": 7, "end": 23, "label": "医療機器設計開発プロセス",
+              "tasks": ["QMS準拠設計", "DR1〜DR3", "V&V"] }
+          ],
+          "next": "2026/11：移行",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    }
+  ]
+}

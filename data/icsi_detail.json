@@ -1,0 +1,758 @@
+{
+  "_comment": "ICSI自動化 詳細スケジュール v37準拠。meta overrideで45ヶ月表示（2026/04〜2029/12）。月index 0=2026/04, 14=2027/06(G1), 20=2027/12(G3), 23=2028/03(G6a), 29=2028/09(G6b), 41=2029/09(Day0), 44=2029/12(StageB)。",
+  "name": "🔬 ICSI自動化",
+  "headerClass": "icsi",
+  "meta": {
+    "_comment": "ICSI専用meta（45ヶ月）。このフィールドがある場合、共通meta.jsonより優先される。",
+    "monthLabels": [
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "yearLabels": [
+      "2026年度",
+      "2027年度",
+      "2028年度",
+      "2029年度"
+    ],
+    "totalMonths": 45,
+    "yearEnds": [
+      11,
+      23,
+      35
+    ]
+  },
+  "categories": [
+    {
+      "cat": "事業・GTM",
+      "catClass": "sales",
+      "themes": [
+        {
+          "id": "icsi_biz_req",
+          "name": "要件定義・事業計画",
+          "owner": "事業責任者（吉田礼）",
+          "status": "progress",
+          "period": "2026/04 〜 2026/06",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 0,
+              "end": 2,
+              "label": "要件定義・事業計画",
+              "tasks": [
+                "事業要件整理",
+                "DUA/CVA/NDA策定開始",
+                "契約雛形設計着手"
+              ]
+            }
+          ],
+          "next": "4月完了"
+        },
+        {
+          "id": "icsi_loi",
+          "name": "LOI締結・研究連携開始",
+          "owner": "伊藤凛（BD）",
+          "status": "progress",
+          "period": "2026/04 〜 2027/09（FY27 Q1末目標: 3施設）",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 0,
+              "end": 17,
+              "label": "LOI締結・研究連携",
+              "tasks": [
+                "LOI先行・研究候補選定",
+                "3施設以上FY27 Q1末目標",
+                "2施設以下→代替施設リスト即提出"
+              ]
+            }
+          ],
+          "next": "FY27 Q1末: LOI3施設目標",
+          "riskLevel": "medium",
+          "riskComment": "2施設以下→代替施設リスト2週間以内提出。3回連続未達でCEO判断。"
+        },
+        {
+          "id": "icsi_gtm_contract",
+          "name": "契約雛形精緻化・価格設計",
+          "owner": "伊藤凛+法務",
+          "status": "gray",
+          "period": "2027/07 〜 2028/03（Day0 T-8W目標）",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 15,
+              "end": 23,
+              "label": "価格骨格確定・契約雛形精緻化",
+              "tasks": [
+                "T-6M商務条件確定",
+                "価格骨格確定",
+                "T-8W法務承認済契約雛形v1.0"
+              ]
+            }
+          ],
+          "next": "Day0 T-8W: 契約雛形v1.0法務承認"
+        },
+        {
+          "id": "icsi_demand_kpi",
+          "name": "T-6M需要確度KPI確認",
+          "owner": "浅沼（PdM）",
+          "status": "gray",
+          "period": "2029/03前（Day0 T-6M）",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 35,
+              "end": 38,
+              "label": "T-6M需要確度KPI",
+              "tasks": [
+                "価格受容確認≥80%",
+                "予算化確認≥70%",
+                "契約稟議着手≥60%",
+                "3条件のうち2条件未達→CEOレビュー必須"
+              ]
+            }
+          ],
+          "next": "Day0 T-6M: 3KPI確認",
+          "riskLevel": "high",
+          "riskComment": "3条件のうち2条件未達でCEOレビュー必須・Stage A先行停止候補（T-6M hard trigger）。"
+        },
+        {
+          "id": "icsi_stage_a",
+          "name": "Stage A（試験的商用利用）",
+          "owner": "伊藤凛（BD）",
+          "status": "gray",
+          "period": "2029/09〜（Day 0〜）",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 41,
+              "end": 44,
+              "label": "Stage A → Stage B",
+              "tasks": [
+                "Stage A契約開始（最低2施設）",
+                "Day0+90でStage B stable sign-off",
+                "ARR認識開始"
+              ]
+            }
+          ],
+          "next": "Day 0（FY29 Q3）ローンチ"
+        }
+      ]
+    },
+    {
+      "cat": "薬事・臨床",
+      "catClass": "yakuji",
+      "themes": [
+        {
+          "id": "icsi_pmda_rs",
+          "name": "⚠D/A G1: PMDA RS申込み受理",
+          "owner": "内海（薬事）",
+          "status": "gray",
+          "period": "2026/04 〜 2027/06（FY27 Q1末〆）",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 0,
+              "end": 14,
+              "label": "PMDA RS申込み・受理",
+              "tasks": [
+                "RS申込み書類内部完成（最大律速）",
+                "法務レビュー早期化",
+                "FY27 Q1末受理目標（G1）"
+              ],
+              "memo": "D/A Gate: 未受理でFY29 Q3成立不能。CEO即日判断必須。"
+            }
+          ],
+          "next": "FY27 Q1末（2027/06）: G1受理",
+          "riskLevel": "high",
+          "riskComment": "G1 D/A Gate。FY27 Q1末未受理→薬事ルート全体3Q後退→FY29 Q3成立不能。CEO即日判断・廃棄卵子試験費用即停止。"
+        },
+        {
+          "id": "icsi_kpi_judgement",
+          "name": "⚠D/A G3: 研究実証KPI初回判定",
+          "owner": "土屋",
+          "status": "gray",
+          "period": "2027/10 〜 2027/12（FY27 Q3末〆）",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 18,
+              "end": 20,
+              "label": "G3 KPI判定（廃棄卵子試験）",
+              "tasks": [
+                "閾値正本（03-0-1）確定済み前提",
+                "KPI閾値未達→G6b不可能",
+                "CEO5営業日以内判断"
+              ],
+              "memo": "D/A Gate: KPI未達で申請用臨床データ確定不能→FY28 Q2末申請不可能。追加試験はFY29タイムラインに間に合わない。"
+            }
+          ],
+          "next": "FY27 Q3末（2027/12）: G3 KPI判定",
+          "riskLevel": "high",
+          "riskComment": "G3 D/A Gate。閾値未達→申請用臨床データ確定不能。CEO5営業日以内判断・Lighthouse第3号以降投資凍結。前提: KPI閾値正本（03-0-1）FY27 Q2末Board承認必須。"
+        },
+        {
+          "id": "icsi_clinical_trial",
+          "name": "廃棄卵子試験（IRB承認後）",
+          "owner": "土屋",
+          "status": "gray",
+          "period": "2027/06 〜 2028/09（IRB承認後着手）",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 14,
+              "end": 29,
+              "label": "廃棄卵子試験・臨床実証",
+              "tasks": [
+                "IRB承認後速やかに着手（WS-D/A）",
+                "FY28 Q2前半: 最終データロック（M-R-04）",
+                "G6b成立の必須前提"
+              ]
+            }
+          ],
+          "next": "FY28 Q2前半（2028/07）: M-R-04 臨床実証完了",
+          "riskLevel": "high",
+          "riskComment": "M-R-04（臨床実証完了）はG6bの隠れD/A。FY28 Q2前半未完了→G6b受理不可→FY29 Q3死亡確定。"
+        },
+        {
+          "id": "icsi_g6a",
+          "name": "⚠D/A G6a: 申請書類完全性ゲート",
+          "owner": "内海（薬事）＋QMS担当",
+          "status": "gray",
+          "period": "2027/10 〜 2028/03（FY27 Q4末〆・単点固定）",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 18,
+              "end": 23,
+              "label": "内部QA開始（最低6週）",
+              "tasks": [
+                "FY27 Q3末からQA開始必須（最低6週）",
+                "内海専任＋CRO週20h",
+                "Q4末未通過→FY28 Q1申請不可能確定"
+              ],
+              "memo": "D/A Gate: Q4末未通過でFY28 Q1申請が物理的に不可能。差戻し1回でFY29 Q3ほぼ死亡。CEO即日判断・Board招集5営業日以内。"
+            }
+          ],
+          "next": "FY27 Q4末（2028/03）: G6a Pass（単点固定）",
+          "riskLevel": "high",
+          "riskComment": "G6a D/A Gate（単点固定）。Q4末未通過→差戻し1回でFY29 Q3ほぼ死亡。QAリソース確定がFY27 Q3末の先行管理最重要。"
+        },
+        {
+          "id": "icsi_g6b",
+          "name": "⚠D/A G6b: PMDA承認申請受理",
+          "owner": "内海（薬事）",
+          "status": "gray",
+          "period": "2028/07 〜 2028/09（FY28 Q2末〆・Best: Q1受理）",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 27,
+              "end": 29,
+              "label": "G6b PMDA申請受理（最遅FY28 Q2末）",
+              "tasks": [
+                "内部締切: Q2前半受付完了",
+                "FY28 Q2第2週末: 申請データパッケージ完成",
+                "FY28 Q2第3〜4週: 書類最終版提出→受理確認"
+              ],
+              "memo": "D/A Gate: 最遅FY28 Q2末。FY29 Q2〜Q3受理では審査完了がFY30以降→FY29 Q3ローンチ物理的に不可能。"
+            }
+          ],
+          "next": "FY28 Q2末（2028/09）最遅 / Best FY28 Q1（2028/06）",
+          "riskLevel": "high",
+          "riskComment": "G6b D/A Gate。最遅FY28 Q2末。FY28 Q2末未受理→FY29 Q3成立不能確定。CEO即日・Board2週間以内報告。Stage A準備を即時凍結。"
+        },
+        {
+          "id": "icsi_pmda_review",
+          "name": "PMDA審査（外部要因）",
+          "owner": "内海（薬事）",
+          "status": "gray",
+          "period": "2028/10 〜 2029/05（審査6〜12ヶ月）",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 30,
+              "end": 37,
+              "label": "PMDA審査（6〜12ヶ月）",
+              "tasks": [
+                "外部要因・コントロール不可",
+                "Best case: 6ヶ月→FY28 Q4承認（idx33）",
+                "最遅: 12ヶ月→FY29 Q2承認（idx37）"
+              ]
+            }
+          ],
+          "next": "承認取得: FY28 Q4（最速）〜FY29 Q2（最遅）"
+        },
+        {
+          "id": "icsi_approval",
+          "name": "承認取得 → Day 0",
+          "owner": "内海（薬事）",
+          "status": "gray",
+          "period": "2029/01〜2029/05（FY28 Q4〜FY29 Q2）",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 33,
+              "end": 41,
+              "label": "承認取得→LRG→Day 0",
+              "tasks": [
+                "承認取得後LRG準備（T-4W）",
+                "LRG全Green→Day 0実行承認",
+                "FY29 Q3 Day 0ローンチ"
+              ]
+            }
+          ],
+          "next": "FY29 Q3（2029/09）: Day 0"
+        }
+      ]
+    },
+    {
+      "cat": "研究連携/LH",
+      "catClass": "clinical",
+      "themes": [
+        {
+          "id": "icsi_lh_l1",
+          "name": "△B G2: Lighthouse Level 1（4条件全成立）",
+          "owner": "伊藤凛+土屋",
+          "status": "gray",
+          "period": "2026/04 〜 2027/09（FY27 Q2末目標）",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 0,
+              "end": 17,
+              "label": "Lighthouse L1（4条件全成立）",
+              "tasks": [
+                "handoff readiness評価が最も先行しにくい条件",
+                "複数施設並行評価が対策",
+                "FY27 Q2末1条件未成立→2週間以内代替策CEO提出"
+              ]
+            }
+          ],
+          "next": "FY27 Q2末（2027/09）: G2 LH L1",
+          "riskLevel": "medium",
+          "riskComment": "B影響度。FY27 Q2末1条件未成立→2週間以内代替策をCEOに提出。④handoff readiness評価が最も先行しにくい。"
+        },
+        {
+          "id": "icsi_handoff",
+          "name": "handoff候補確定（質的4条件）",
+          "owner": "伊藤凛+土屋",
+          "status": "gray",
+          "period": "2027/07 〜 2028/12（FY28 Q4末目標）",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 15,
+              "end": 32,
+              "label": "handoff候補選定・確定",
+              "tasks": [
+                "LOI施設の50%以上がhandoff候補確定",
+                "30%未満でDay 0凍結候補をCEO判断",
+                "FY28 Q4末未達→2週間以内代替策提出"
+              ]
+            }
+          ],
+          "next": "FY28 Q4末（2028/12）: handoff候補確定",
+          "riskLevel": "medium",
+          "riskComment": "50%未満→代替施設追加アプローチ。閾値30%未満でDay 0凍結候補をCEO判断。"
+        },
+        {
+          "id": "icsi_irb",
+          "name": "IRB申請・承認",
+          "owner": "土屋",
+          "status": "gray",
+          "period": "2026/07 〜 2027/06（FY27 Q1目安）",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 3,
+              "end": 14,
+              "label": "IRB申請→承認",
+              "tasks": [
+                "IRB申請開始（低可制御）",
+                "承認後速やかに廃棄卵子試験着手",
+                "SL-3: 施設稼働承認の前提条件"
+              ]
+            }
+          ],
+          "next": "FY27 Q1目安: IRB承認→試験着手"
+        }
+      ]
+    },
+    {
+      "cat": "QMS・品質",
+      "catClass": "qms",
+      "themes": [
+        {
+          "id": "icsi_qms_design",
+          "name": "QMS基本設計ロック（CEO Go判断）",
+          "owner": "QMS担当（外部コンサル）",
+          "status": "progress",
+          "period": "2026/04 〜 2026/06（FY26 Q1末CEO Go）",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 0,
+              "end": 2,
+              "label": "QMS基本設計",
+              "tasks": [
+                "CEO Go → OEM選定・CS設計を連鎖解禁",
+                "未判断→OEM選定・CS設計を停止継続",
+                "外部QMSコンサル先行起用"
+              ]
+            }
+          ],
+          "next": "FY26 Q1末: CEO Go判断",
+          "riskLevel": "high",
+          "riskComment": "CEO未判断→OEM選定・製造仕様設計を全停止。直近90日の最優先CEO判断事項。"
+        },
+        {
+          "id": "icsi_qms_build",
+          "name": "QMS体制整備・基準計画承認",
+          "owner": "品証",
+          "status": "gray",
+          "period": "2026/05 〜 2027/09（能動医療機器対応）",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 1,
+              "end": 17,
+              "label": "QMS体制整備（能動医療機器対応）",
+              "tasks": [
+                "品質マニュアル整備",
+                "手順書作成",
+                "能動医療機器特有要件対応"
+              ]
+            }
+          ],
+          "next": "FY27 Q2末: QMS体制整備完了（M-M-01）",
+          "riskLevel": "medium",
+          "riskComment": "M-M-01条件付B。①OEM評価開始遅延 ②QMS担当不足でG6a内部QA支障 ③製造証明ドラフトがQxを跨ぐ → いずれか成立で即B昇格。"
+        },
+        {
+          "id": "icsi_sl4_qa",
+          "name": "SL-4: 申請書類内部QA（G6a前提）",
+          "owner": "内海（薬事）＋QMS担当",
+          "status": "gray",
+          "period": "2027/10 〜 2028/03（FY27 Q3末開始・Q4末完了）",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 18,
+              "end": 23,
+              "label": "申請書類内部QA（SL-4）",
+              "tasks": [
+                "最低6週必要→FY27 Q3末開始必須",
+                "内海専任化必要",
+                "完全性未確認→外部提出停止・補完最優先（SL-4）"
+              ]
+            }
+          ],
+          "next": "FY27 Q4末: SL-4解除→外部提出許可"
+        },
+        {
+          "id": "icsi_md_design_process",
+          "name": "医療機器設計開発プロセス（DHF/DMR/DHR）",
+          "owner": "開発／品証",
+          "status": "gray",
+          "period": "2027/07 〜 2028/09",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 15,
+              "end": 29,
+              "label": "医療機器設計開発プロセス",
+              "tasks": [
+                "QMS準拠設計",
+                "DR1〜DR3",
+                "V&V",
+                "DHF/DMR/DHR整備",
+                "申請後照会対応"
+              ]
+            }
+          ],
+          "next": "FY28 Q2末: 設計開発プロセス完了"
+        }
+      ]
+    },
+    {
+      "cat": "製造・OEM",
+      "catClass": "dev",
+      "themes": [
+        {
+          "id": "icsi_proto_dev",
+          "name": "プロトタイプ開発",
+          "owner": "開発（濱松）",
+          "status": "progress",
+          "period": "2026/04 〜 2026/12",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 0,
+              "end": 8,
+              "label": "プロトタイプ開発",
+              "tasks": [
+                "機構設計",
+                "プロト試作",
+                "動作検証",
+                "精子評価AI実装M1（ICSI申請必須モジュール）"
+              ]
+            }
+          ],
+          "next": "2026/12: プロトタイプ完成"
+        },
+        {
+          "id": "icsi_oem_list",
+          "name": "OEM候補リスト化・評価",
+          "owner": "濱松（TL）",
+          "status": "gray",
+          "period": "2026/07 〜 2027/09（FY27 Q2末: 評価開始目標）",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 3,
+              "end": 17,
+              "label": "OEM候補リスト化・技術評価",
+              "tasks": [
+                "FY27中にリスト確定・技術評価開始が望ましい",
+                "FY27 Q2末時点でOEM評価開始遅延→M-M-01 B昇格",
+                "早期リスト化が最大レバー"
+              ]
+            }
+          ],
+          "next": "FY27 Q2末: OEM技術評価開始"
+        },
+        {
+          "id": "icsi_g4_oem",
+          "name": "⚠D/A G4: OEM/製造委託候補成立",
+          "owner": "濱松（TL）",
+          "status": "gray",
+          "period": "2028/04 〜 2028/09（FY28 Q2末〆・内部締切: Q2前半）",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 24,
+              "end": 29,
+              "label": "G4 OEM候補成立（最終絞込→LOI正式締結）",
+              "tasks": [
+                "FY28 Q1末: 候補最終化・LOI交渉開始",
+                "FY28 Q2前半: LOI仮締結（内部締切）",
+                "FY28 Q2末: LOI正式締結（G4成立確定）"
+              ],
+              "memo": "D/A Gate: 未成立→量産設計FIX不可→FY28申請の製造スケールアップ証明が困難。CEO5営業日以内判断。"
+            }
+          ],
+          "next": "FY28 Q2前半（2028/07）: OEM LOI仮締結",
+          "riskLevel": "high",
+          "riskComment": "G4 D/A Gate。FY28 Q2末未成立→量産設計FIX以降の開発工程・製造設備投資を停止。CEO5営業日以内判断。"
+        },
+        {
+          "id": "icsi_mass_prod",
+          "name": "量産体制構築・量産化開発",
+          "owner": "濱松（TL）",
+          "status": "gray",
+          "period": "2028/10 〜 2029/06",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 30,
+              "end": 38,
+              "label": "量産体制構築・量産化開発",
+              "tasks": [
+                "製造ライン設計",
+                "パイロット量産",
+                "OEM量産証明",
+                "出荷在庫確保"
+              ]
+            }
+          ],
+          "next": "FY29 Q2末: 量産体制完成"
+        },
+        {
+          "id": "icsi_launch_ready",
+          "name": "Launch Ready機体完成",
+          "owner": "濱松（TL）",
+          "status": "gray",
+          "period": "2029/04 〜 2029/06（FY29 Q2末〆）",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 36,
+              "end": 38,
+              "label": "Launch Ready機体（FY29 Q2末）",
+              "tasks": [
+                "FY29 Q3ローンチ用機体完成",
+                "品質証明書（バッチ記録・検査成績書）",
+                "FY29 Q2末未完成→CEO即日判断"
+              ]
+            }
+          ],
+          "next": "FY29 Q2末（2029/06）: Launch Ready機体",
+          "riskLevel": "medium",
+          "riskComment": "B影響度。FY29 Q2末未完成→CEO即日判断。LRGの製造Greenの前提条件。"
+        }
+      ]
+    },
+    {
+      "cat": "CS・組織",
+      "catClass": "data",
+      "themes": [
+        {
+          "id": "icsi_headcount",
+          "name": "Headcount unlock（二段階設計）",
+          "owner": "Board / 事業責任者",
+          "status": "gray",
+          "period": "2026/04〜（二段階解禁）",
+          "phases": [
+            {
+              "phase": "data",
+              "start": 0,
+              "end": 2,
+              "label": "第1段階: 採用ルールBoard承認",
+              "tasks": [
+                "Board承認のみ（解禁ではない）",
+                "解禁ではない点に注意"
+              ]
+            },
+            {
+              "phase": "data",
+              "start": 3,
+              "end": 17,
+              "label": "第2段階: SL-3解除後＋資金確保後→Board採用計画承認",
+              "tasks": [
+                "SL-3解除後かつ資金確保後のみ解禁",
+                "Board採用計画承認→採用活動開始",
+                "FAE/CS採用進行"
+              ]
+            }
+          ],
+          "next": "FY27 Q2末: SL-3解除→採用本格化"
+        },
+        {
+          "id": "icsi_cs_readiness",
+          "name": "CS readiness構築",
+          "owner": "浅沼（PdM）＋CS",
+          "status": "gray",
+          "period": "2028/10 〜 2029/09（Day0 T-4W公式判定）",
+          "phases": [
+            {
+              "phase": "data",
+              "start": 30,
+              "end": 38,
+              "label": "T-3M CS readiness内部事前確認",
+              "tasks": [
+                "CS担当者採用済",
+                "初期訓練計画確定",
+                "手順書ドラフト完成",
+                "T-3M前未充足→T-4W LRG判定RedリスクをCEO報告"
+              ]
+            },
+            {
+              "phase": "launch",
+              "start": 39,
+              "end": 39,
+              "label": "T-4W LRG公式判定（CS Green）",
+              "tasks": [
+                "CS担当者配置済",
+                "手順書v1.0完成",
+                "初期訓練完了",
+                "未完了→LRG Red→Day 0凍結"
+              ]
+            }
+          ],
+          "next": "Day0 T-4W（2029/07）: LRG CS Green"
+        },
+        {
+          "id": "icsi_lrg",
+          "name": "⚠LRG（Launch Readiness Gate）",
+          "owner": "CEO/Board",
+          "status": "gray",
+          "period": "2029/07（Day 0 T-4W）",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 39,
+              "end": 40,
+              "label": "LRG（Day 0 T-4W独立ゲート）",
+              "tasks": [
+                "製造Green: 量産機体品質証明書（濱松）",
+                "薬事Green: PMDA承認取得確認書（内海）",
+                "商用Green: 初期導入施設契約済リスト≥2施設（伊藤凛）",
+                "CS Green: 手順書v1.0・配置・訓練完了（浅沼）",
+                "1項目でもRed→Day 0凍結"
+              ],
+              "memo": "独立ゲート。全項目Greenが実行承認条件。CEO/Board署名必須。"
+            }
+          ],
+          "next": "Day 0 T-4W（2029/07）: LRG全Green→Day 0承認",
+          "riskLevel": "high",
+          "riskComment": "LRG未通過→Stage A開始停止・Day 0延期。1項目でもRed発見時点→CEO即日・Board即時報告。"
+        },
+        {
+          "id": "icsi_stage_b",
+          "name": "Stage B stable sign-off（ARR解禁）",
+          "owner": "CEO/Board",
+          "status": "gray",
+          "period": "2029/12（Day 0+90日）",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 44,
+              "end": 44,
+              "label": "Stage B stable sign-off",
+              "tasks": [
+                "T+90 KPI全達成",
+                "1施設以上安定稼働・CS SLA充足",
+                "ARR認識開始",
+                "sign-off未達→展開凍結・是正計画30日提出"
+              ]
+            }
+          ],
+          "next": "Day 0+90日（2029/12）: Stage B→ARR認識開始"
+        }
+      ]
+    }
+  ]
+}

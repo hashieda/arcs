@@ -1,0 +1,145 @@
+{
+  "_comment": "ICSI自動化 全体ビュー用データ。詳細ビューは icsi_detail.json を使用。",
+  "name": "🔬 ICSI自動化",
+  "headerClass": "icsi",
+  "categories": [
+    {
+      "cat": "営業",
+      "catClass": "sales",
+      "themes": [
+        {
+          "id": "icsi_req",
+          "name": "要件定義",
+          "owner": "事業／開発",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 0, "label": "要件定義",
+              "tasks": ["事業要件整理"] }
+          ],
+          "next": "4月完了",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    },
+    {
+      "cat": "薬事",
+      "catClass": "yakuji",
+      "themes": [
+        {
+          "id": "icsi_pmda",
+          "name": "PMDA相談",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2026/05 〜 2027/06",
+          "phases": [
+            { "phase": "navy", "start": 1, "end": 14, "label": "PMDA相談",
+              "tasks": ["対面助言複数回", "クラス分類確定", "臨床評価方針"] }
+          ],
+          "next": "5月：初回相談",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "icsi_clinical",
+          "name": "臨床性能評価試験（計画・実施・解析）",
+          "owner": "薬事／臨床",
+          "status": "gray",
+          "period": "2027/07 〜 2028/03",
+          "phases": [
+            { "phase": "navy", "start": 15, "end": 23, "label": "臨床性能評価試験（計画・実施・解析）",
+              "tasks": ["試験計画", "症例組入", "解析"] }
+          ],
+          "next": "2027/07〜",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "icsi_qms",
+          "name": "QMS体制構築（能動医療機器対応）",
+          "owner": "品証",
+          "status": "gray",
+          "period": "2026/05 〜 2026/12",
+          "phases": [
+            { "phase": "navy", "start": 1, "end": 8, "label": "QMS体制構築（能動医療機器対応）",
+              "tasks": ["QMS体制設計", "手順書整備", "能動医療機器特有要件"] }
+          ],
+          "next": "5月：開始",
+          "delayReason": "",
+          "riskComment": "能動医療機器対応QMSは難易度高。外部支援要否を早期に判断する必要あり。",
+          "riskLevel": "watch"
+        },
+        {
+          "id": "icsi_md_dev",
+          "name": "医療機器設計開発プロセス",
+          "owner": "開発／品証",
+          "status": "gray",
+          "period": "2027/01 〜 2028/03",
+          "phases": [
+            { "phase": "navy", "start": 9, "end": 23, "label": "医療機器設計開発プロセス",
+              "tasks": ["QMS準拠設計", "DR1〜DR3", "V&V"] }
+          ],
+          "next": "2027/01：移行",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    },
+    {
+      "cat": "開発",
+      "catClass": "dev",
+      "themes": [
+        {
+          "id": "icsi_proto",
+          "name": "プロトタイプ開発",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/04 〜 2026/12",
+          "phases": [
+            { "phase": "navy", "start": 0, "end": 8, "label": "プロトタイプ開発",
+              "tasks": ["機構設計", "プロト試作", "動作検証"] }
+          ],
+          "next": "4月：着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "icsi_md_dev_main",
+          "name": "医療機器開発",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2027/01 〜 2027/11",
+          "phases": [
+            { "phase": "navy", "start": 9, "end": 19, "label": "医療機器開発",
+              "tasks": ["設計", "試作", "評価"] }
+          ],
+          "next": "2027/01〜",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "icsi_mass",
+          "name": "量産化開発",
+          "owner": "開発／製造",
+          "status": "gray",
+          "period": "2027/12 〜 2028/03",
+          "phases": [
+            { "phase": "navy", "start": 20, "end": 23, "label": "量産化開発",
+              "tasks": ["製造ライン設計", "パイロット量産"] }
+          ],
+          "next": "2027/12〜",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    }
+  ]
+}

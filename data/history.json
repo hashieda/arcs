@@ -1,0 +1,17 @@
+{
+  "_comment": "更新履歴ログ。新しい更新を配列の先頭に追加する。date: YYYY-MM-DD、product: ranshi/seishi/icsi/all、type: delay/risk/progress/plan、text: 内容。",
+  "entries": [
+    {
+      "date": "2026-05-10",
+      "product": "all",
+      "type": "progress",
+      "text": "JSON分離構成へ移行。遅延理由・リスクコメント・計画線比較・更新履歴・リスク自動集計に対応。"
+    },
+    {
+      "date": "2026-05-10",
+      "product": "all",
+      "type": "plan",
+      "text": "2026年度〜2027年度の24ヶ月スケジュール骨子を確定。"
+    }
+  ]
+}

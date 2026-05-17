@@ -1,0 +1,331 @@
+{
+  "_comment": "卵子AI 詳細スケジュール。当面は全体ビューと同一構造。必要に応じてカテゴリを細分化して編集する。",
+  "name": "🥚 卵子AI 詳細スケジュール",
+  "headerClass": "ranshi",
+  "categories": [
+    {
+      "cat": "営業",
+      "catClass": "sales",
+      "themes": [
+        {
+          "id": "ranshi_sales_1",
+          "name": "ビジネスモデル確定",
+          "owner": "営業企画",
+          "status": "progress",
+          "period": "2026/04 〜 2026/05",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 0,
+              "end": 1,
+              "label": "ビジネスモデル確定",
+              "tasks": [
+                "ターゲット顧客像確定",
+                "価格モデル決定",
+                "販売チャネル選定"
+              ]
+            }
+          ],
+          "next": "5月：BM最終合意",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_sales_2",
+          "name": "国内販売体制構築",
+          "owner": "営業／事業",
+          "status": "gray",
+          "period": "2026/06 〜 2026/11",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 2,
+              "end": 7,
+              "label": "国内販売体制構築",
+              "tasks": [
+                "販売代理店契約",
+                "カスタマーサポート設計",
+                "保守体制構築"
+              ]
+            }
+          ],
+          "next": "6月：体制設計着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    },
+    {
+      "cat": "薬事",
+      "catClass": "yakuji",
+      "themes": [
+        {
+          "id": "ranshi_pmda",
+          "name": "PMDA相談",
+          "owner": "薬事担当",
+          "status": "progress",
+          "period": "2026/05 〜 2026/12",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 1,
+              "end": 8,
+              "label": "PMDA相談",
+              "tasks": [
+                "事前面談",
+                "医療機器該当性確認",
+                "プロトコル相談"
+              ]
+            }
+          ],
+          "next": "5月：初回相談調整中",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_yakuji_class",
+          "name": "医療機器該当性確認",
+          "owner": "薬事担当",
+          "status": "gray",
+          "period": "2026/06 〜 2026/07",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 2,
+              "end": 3,
+              "label": "医療機器該当性確認",
+              "tasks": [
+                "クラス分類検討",
+                "届出 or 承認区分判定"
+              ]
+            }
+          ],
+          "next": "6月：開始",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_clinical",
+          "name": "臨床性能評価試験（計画・実施・解析）",
+          "owner": "臨床／薬事",
+          "status": "gray",
+          "period": "2027/04 〜 2028/02",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 12,
+              "end": 22,
+              "label": "臨床性能評価試験（計画・実施・解析）",
+              "tasks": [
+                "試験計画書作成",
+                "症例組入れ",
+                "中間解析",
+                "最終解析"
+              ]
+            }
+          ],
+          "next": "2027年度開始",
+          "delayReason": "",
+          "riskComment": "症例組入れ遅延が承認申請時期に直結。実施機関の早期確保が前提条件。",
+          "riskLevel": "watch"
+        },
+        {
+          "id": "ranshi_approval",
+          "name": "承認申請",
+          "owner": "薬事担当",
+          "status": "gray",
+          "period": "2028/03",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 23,
+              "end": 23,
+              "label": "承認申請",
+              "tasks": [
+                "申請書類作成",
+                "PMDA提出"
+              ]
+            }
+          ],
+          "next": "2028/03",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    },
+    {
+      "cat": "開発",
+      "catClass": "dev",
+      "themes": [
+        {
+          "id": "ranshi_dev_req",
+          "name": "要件定義",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 0,
+              "end": 0,
+              "label": "要件定義",
+              "tasks": [
+                "機能要件整理",
+                "非機能要件整理"
+              ]
+            }
+          ],
+          "next": "4月完了予定",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_dev_test",
+          "name": "開発・テスト",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/05 〜 2026/09",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 1,
+              "end": 5,
+              "label": "開発・テスト",
+              "tasks": [
+                "アルゴリズム実装",
+                "UI実装",
+                "結合テスト"
+              ]
+            }
+          ],
+          "next": "5月：開発着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_dev_opt",
+          "name": "製品最適化",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/10 〜 2026/12",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 6,
+              "end": 8,
+              "label": "製品最適化",
+              "tasks": [
+                "パフォーマンスチューニング",
+                "精度向上施策"
+              ]
+            }
+          ],
+          "next": "10月以降",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_dev_third",
+          "name": "第三者検証 ※非医療機器",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2027/01 〜 2027/02",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 9,
+              "end": 10,
+              "label": "第三者検証 ※非医療機器",
+              "tasks": [
+                "外部評価依頼",
+                "検証結果反映"
+              ]
+            }
+          ],
+          "next": "2027/01",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_ai_data",
+          "name": "AI学習用データ収集",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/05 〜 2026/09",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 1,
+              "end": 5,
+              "label": "AI学習用データ収集",
+              "tasks": [
+                "データ収集計画",
+                "医療機関連携"
+              ]
+            }
+          ],
+          "next": "5月：収集計画確定",
+          "delayReason": "",
+          "riskComment": "医療機関連携の遅れがデータ収集→開発全体に波及するクリティカルパス。",
+          "riskLevel": "watch"
+        },
+        {
+          "id": "ranshi_ai_ethics",
+          "name": "AI倫理試験",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/10 〜 2026/12",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 6,
+              "end": 8,
+              "label": "AI倫理試験",
+              "tasks": [
+                "倫理委員会申請",
+                "倫理審査"
+              ]
+            }
+          ],
+          "next": "10月：開始",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        },
+        {
+          "id": "ranshi_dev_process",
+          "name": "医療機器設計開発プロセス ※医療機器の場合",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2027/01 〜 2028/03",
+          "phases": [
+            {
+              "phase": "navy",
+              "start": 9,
+              "end": 23,
+              "label": "医療機器設計開発プロセス",
+              "tasks": [
+                "QMS準拠設計",
+                "DHF整備",
+                "設計検証"
+              ]
+            }
+          ],
+          "next": "2027/01：着手",
+          "delayReason": "",
+          "riskComment": "",
+          "riskLevel": ""
+        }
+      ]
+    }
+  ]
+}
