@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCS — AIスケジュール更新ツール</title>
+<style>
+/* ══════════════════════════════════════════════
+   ARCS Schedule Updater — Industrial/Precision UI
+   ══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0A0F1A;
+  --surface:     #111827;
+  --surface-2:   #1C2536;
+  --surface-3:   #243044;
+  --border:      rgba(99,132,199,0.15);
+  --border-hi:   rgba(99,132,199,0.35);
+  --blue:        #3B82F6;
+  --blue-dim:    #1D4ED8;
+  --cyan:        #06B6D4;
+  --green:       #10B981;
+  --yellow:      #F59E0B;
+  --red:         #EF4444;
+  --text:        #E2E8F0;
+  --text-sub:    #64748B;
+  --text-muted:  #334155;
+  --mono:        'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --sans:        'Hiragino Kaku Gothic ProN','Noto Sans JP',system-ui,sans-serif;
+  --radius:      6px;
+  --transition:  0.18s ease;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; }
+
+/* ── スクロールバー ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 2px; }
+
+/* ══ レイアウト ══ */
+.app { display: grid; grid-template-rows: 48px 1fr; height: 100vh; }
+
+/* ── トップバー ── */
+.topbar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-logo { display: flex; align-items: center; gap: 8px; }
+.topbar-logo .mark {
+  width: 24px; height: 24px;
+  background: linear-gradient(135deg, var(--blue), #1E40AF);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.topbar-title { font-size: 12px; font-weight: 700; color: var(--text); letter-spacing: 0.08em; }
+.topbar-sep { color: var(--text-muted); }
+.topbar-sub { font-size: 11px; color: var(--text-sub); }
+.topbar-spacer { flex: 1; }
+.topbar-nav a {
+  font-size: 11px; color: var(--text-sub); text-decoration: none;
+  padding: 4px 10px; border: 1px solid var(--border); border-radius: var(--radius);
+  transition: color var(--transition), border-color var(--transition);
+}
+.topbar-nav a:hover { color: var(--text); border-color: var(--border-hi); }
+
+/* ── メインコンテンツ ── */
+.main { display: grid; grid-template-columns: 340px 1fr; overflow: hidden; }
+
+/* ══ 左パネル（入力） ══ */
+.panel-left {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.panel-section {
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-sub);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.panel-label::before {
+  content: ''; width: 2px; height: 10px;
+  background: var(--blue); border-radius: 1px;
+}
+
+/* ── ファイルドロップゾーン ── */
+.drop-zone {
+  border: 1.5px dashed var(--border-hi);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  background: rgba(59,130,246,0.02);
+  position: relative;
+}
+.drop-zone:hover, .drop-zone.dragover {
+  border-color: var(--blue);
+  background: rgba(59,130,246,0.06);
+}
+.drop-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.drop-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+.drop-text { font-size: 11px; color: var(--text-sub); line-height: 1.6; }
+.drop-text strong { color: var(--text); }
+.drop-accept { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+
+/* ── プレビューサムネイル ── */
+.file-preview {
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+.file-preview.show { display: flex; }
+.file-thumb {
+  width: 36px; height: 36px;
+  background: var(--surface-3);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+  overflow: hidden;
+}
+.file-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.file-info { flex: 1; overflow: hidden; }
+.file-name { font-size: 11px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-size { font-size: 10px; color: var(--text-sub); }
+.file-remove {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  padding: 2px 4px; font-size: 14px; border-radius: 3px;
+  transition: color var(--transition);
+}
+.file-remove:hover { color: var(--red); }
+
+/* ── 対象ファイル選択 ── */
+.target-select {
+  width: 100%; padding: 8px 10px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text);
+  font-family: var(--sans); font-size: 12px;
+  outline: none; cursor: pointer;
+  transition: border-color var(--transition);
+}
+.target-select:focus { border-color: var(--blue); }
+.target-select option { background: var(--surface-2); }
+
+/* ── 補足メモ ── */
+.memo-input {
+  width: 100%; padding: 8px 10px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text);
+  font-family: var(--sans); font-size: 12px;
+  outline: none; resize: vertical; min-height: 64px;
+  transition: border-color var(--transition);
+  line-height: 1.5;
+}
+.memo-input:focus { border-color: var(--blue); }
+.memo-input::placeholder { color: var(--text-muted); }
+
+/* ── 解析ボタン ── */
+.analyze-btn {
+  width: 100%; padding: 10px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dim) 100%);
+  border: none; border-radius: var(--radius);
+  color: white; font-size: 12px; font-weight: 700;
+  font-family: var(--sans); letter-spacing: 0.04em;
+  cursor: pointer; transition: opacity var(--transition), transform 0.1s;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+}
+.analyze-btn:hover { opacity: 0.9; }
+.analyze-btn:active { transform: scale(0.98); }
+.analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── ステータスログ ── */
+.log-area {
+  flex: 1; overflow-y: auto;
+  padding: 12px 16px;
+  font-family: var(--mono); font-size: 10.5px;
+  line-height: 1.7;
+}
+.log-line { display: flex; gap: 8px; }
+.log-time { color: var(--text-muted); flex-shrink: 0; }
+.log-info  { color: var(--cyan); }
+.log-ok    { color: var(--green); }
+.log-warn  { color: var(--yellow); }
+.log-error { color: var(--red); }
+.log-dim   { color: var(--text-sub); }
+
+/* ══ 右パネル（結果） ══ */
+.panel-right {
+  display: flex; flex-direction: column;
+  overflow: hidden; background: var(--bg);
+}
+
+/* ── タブバー ── */
+.tab-bar {
+  display: flex; align-items: center; gap: 2px;
+  padding: 8px 16px 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  padding: 6px 14px; font-size: 11px; font-family: var(--sans);
+  color: var(--text-sub); background: none; border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer; transition: color var(--transition), border-color var(--transition);
+  font-weight: 500; letter-spacing: 0.02em;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+.tab-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 8px;
+  background: var(--blue-dim); color: white;
+  font-size: 9px; font-weight: 700; margin-left: 4px;
+}
+
+/* ── タブコンテンツ ── */
+.tab-content { flex: 1; overflow: hidden; display: none; }
+.tab-content.active { display: flex; flex-direction: column; }
+
+/* ── 空状態 ── */
+.empty-state {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: var(--text-muted); gap: 10px;
+}
+.empty-icon { font-size: 36px; opacity: 0.4; }
+.empty-text { font-size: 12px; text-align: center; line-height: 1.7; }
+
+/* ── 差分パッチリスト ── */
+.patch-toolbar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.patch-info { font-size: 11px; color: var(--text-sub); flex: 1; }
+.patch-info strong { color: var(--text); }
+.btn-sm {
+  padding: 5px 12px; font-size: 11px; font-family: var(--sans);
+  border-radius: var(--radius); cursor: pointer; font-weight: 600;
+  transition: opacity var(--transition);
+}
+.btn-sm:hover { opacity: 0.85; }
+.btn-primary { background: var(--blue); border: none; color: white; }
+.btn-ghost   { background: none; border: 1px solid var(--border-hi); color: var(--text); }
+.btn-danger  { background: none; border: 1px solid rgba(239,68,68,0.4); color: var(--red); }
+
+.patch-list { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+
+/* ── パッチカード ── */
+.patch-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.patch-card:hover { border-color: var(--border-hi); }
+.patch-card.selected { border-color: var(--blue); }
+.patch-card.applied  { border-color: var(--green); opacity: 0.6; }
+
+.patch-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.patch-check {
+  width: 14px; height: 14px; flex-shrink: 0;
+  border: 1.5px solid var(--border-hi); border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition), border-color var(--transition);
+}
+.patch-card.selected .patch-check { background: var(--blue); border-color: var(--blue); }
+.patch-card.selected .patch-check::after { content: '✓'; font-size: 9px; color: white; }
+.patch-card.applied .patch-check { background: var(--green); border-color: var(--green); }
+.patch-card.applied .patch-check::after { content: '✓'; font-size: 9px; color: white; }
+
+.patch-id { font-family: var(--mono); font-size: 10px; color: var(--cyan); }
+.patch-name { font-size: 11px; color: var(--text); flex: 1; font-weight: 500; }
+.patch-badge {
+  font-size: 9px; font-weight: 700; padding: 2px 6px;
+  border-radius: 3px; letter-spacing: 0.06em;
+}
+.badge-status   { background: rgba(59,130,246,0.15); color: #60A5FA; }
+.badge-period   { background: rgba(6,182,212,0.15);  color: #22D3EE; }
+.badge-risk     { background: rgba(245,158,11,0.15); color: #FCD34D; }
+.badge-delay    { background: rgba(239,68,68,0.15);  color: #FCA5A5; }
+.badge-phase    { background: rgba(16,185,129,0.15); color: #34D399; }
+.badge-new      { background: rgba(167,139,250,0.15);color: #C4B5FD; }
+.badge-tasks    { background: rgba(99,102,241,0.15); color: #A5B4FC; }
+
+.patch-body {
+  border-top: 1px solid var(--border);
+  padding: 10px 12px; display: none;
+}
+.patch-card.expanded .patch-body { display: block; }
+.patch-expand-toggle { font-size: 10px; color: var(--text-muted); cursor: pointer; user-select: none; }
+
+.diff-row { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 8px; margin-bottom: 6px; font-size: 11px; }
+.diff-field { color: var(--text-sub); font-family: var(--mono); font-size: 10px; align-self: start; padding-top: 1px; }
+.diff-old { color: var(--red); background: rgba(239,68,68,0.08); padding: 2px 6px; border-radius: 3px; word-break: break-all; }
+.diff-new { color: var(--green); background: rgba(16,185,129,0.08); padding: 2px 6px; border-radius: 3px; word-break: break-all; }
+.diff-new.same { color: var(--text-sub); background: transparent; }
+
+.patch-reason { font-size: 10.5px; color: var(--text-sub); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); line-height: 1.6; }
+.patch-reason::before { content: '💡 '; }
+
+/* ── JSON確認タブ ── */
+.json-view { flex: 1; overflow: auto; padding: 16px; }
+.json-view pre {
+  font-family: var(--mono); font-size: 11px; color: var(--text-sub);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+  white-space: pre-wrap; word-break: break-all; line-height: 1.7;
+}
+
+/* ── 適用完了バナー ── */
+.apply-banner {
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: var(--radius);
+  margin: 12px 16px;
+  font-size: 12px; color: var(--green);
+}
+.apply-banner.show { display: flex; }
+
+/* ── プログレスバー ── */
+.progress-bar-wrap {
+  height: 2px; background: var(--surface-2);
+  overflow: hidden; display: none;
+}
+.progress-bar-wrap.show { display: block; }
+.progress-bar {
+  height: 100%; background: var(--blue);
+  width: 0%; transition: width 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.progress-bar::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+  animation: shimmer 1s linear infinite;
+}
+@keyframes shimmer { from { transform: translateX(-40px); } to { transform: translateX(40px); } }
+
+/* ── ローディング ── */
+.spin {
+  display: inline-block; width: 10px; height: 10px;
+  border: 1.5px solid rgba(59,130,246,0.3); border-top-color: var(--blue);
+  border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 4px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+  .panel-left { max-height: 50vh; }
+}
+</style>
+<script>
+/* 認証チェック */
+(function(){
+  const SESSION_KEY  = 'arcs_auth';
+  const PASSWORD_HASH = '6dd2412f17349521ad825ba171668baa163861654895c5d4f9620ea375ffe8be';
+  const SESSION_TTL  = 8 * 60 * 60 * 1000;
+  try {
+    const saved = sessionStorage.getItem(SESSION_KEY);
+    if (!saved) throw new Error('no session');
+    const { hash, ts } = JSON.parse(saved);
+    if (hash !== PASSWORD_HASH || Date.now() - ts >= SESSION_TTL) throw new Error('expired');
+  } catch(_) {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.replace('auth.html');
+  }
+})();
+</script>
+</head>
+<body>
+<div class="app">
+
+  <!-- トップバー -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="mark">🔬</div>
+      <span class="topbar-title">ARCS</span>
+    </div>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-sub">AIスケジュール更新ツール</span>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-nav">
+      <a href="index.html">← スケジュール表示</a>
+    </div>
+  </div>
+
+  <!-- メイン -->
+  <div class="main">
+
+    <!-- 左パネル -->
+    <div class="panel-left">
+
+      <!-- ファイルアップロード -->
+      <div class="panel-section">
+        <div class="panel-label">① ファイルをアップロード</div>
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg,.gif,.webp" />
+          <span class="drop-icon">📎</span>
+          <div class="drop-text">
+            <strong>クリックまたはドラッグ&ドロップ</strong><br>
+            スケジュール表のPDFまたは画像
+          </div>
+          <div class="drop-accept">PDF / PNG / JPG / WEBP 対応</div>
+        </div>
+        <div class="file-preview" id="file-preview">
+          <div class="file-thumb" id="file-thumb">📄</div>
+          <div class="file-info">
+            <div class="file-name" id="file-name">—</div>
+            <div class="file-size" id="file-size">—</div>
+          </div>
+          <button class="file-remove" id="file-remove" title="削除">✕</button>
+        </div>
+      </div>
+
+      <!-- 対象データファイル -->
+      <div class="panel-section">
+        <div class="panel-label">② 更新対象</div>
+        <select class="target-select" id="target-select">
+          <option value="icsi_detail">🔬 ICSI自動化（詳細）</option>
+          <option value="seishi">🧬 精子AI（全体）</option>
+          <option value="ranshi">🥚 卵子AI（全体）</option>
+          <option value="icsi">🔬 ICSI自動化（全体）</option>
+          <option value="seishi_detail">🧬 精子AI（詳細）</option>
+          <option value="ranshi_detail">🥚 卵子AI（詳細）</option>
+        </select>
+      </div>
+
+      <!-- 補足メモ -->
+      <div class="panel-section">
+        <div class="panel-label">③ 補足メモ（任意）</div>
+        <textarea class="memo-input" id="memo-input"
+          placeholder="例: G3ゲートを2ヶ月延期&#10;例: OEM候補が1社絞り込まれた&#10;例: 6月時点のスケジュール更新版"></textarea>
+      </div>
+
+      <!-- 解析ボタン -->
+      <div class="panel-section" style="border-bottom:none">
+        <button class="analyze-btn" id="analyze-btn" disabled>
+          AIで解析して差分を生成
+        </button>
+      </div>
+
+      <!-- プログレスバー -->
+      <div class="progress-bar-wrap" id="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <!-- ログ -->
+      <div class="log-area" id="log-area">
+        <div class="log-line"><span class="log-dim">ファイルをアップロードして「AIで解析」を押してください</span></div>
+      </div>
+    </div>
+
+    <!-- 右パネル -->
+    <div class="panel-right">
+
+      <!-- タブバー -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="patches">
+          差分パッチ <span class="tab-count" id="patch-count">0</span>
+        </button>
+        <button class="tab-btn" data-tab="json">
+          生成JSON
+        </button>
+        <button class="tab-btn" data-tab="history">
+          更新ログ
+        </button>
+      </div>
+
+      <!-- 差分パッチタブ -->
+      <div class="tab-content active" id="tab-patches">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-text">
+            PDFや画像をアップロードして<br>「AIで解析」を押すと<br>スケジュールの差分が表示されます
+          </div>
+        </div>
+
+        <div style="display:none" id="patch-panel">
+          <div class="patch-toolbar">
+            <span class="patch-info" id="patch-info">—</span>
+            <button class="btn-sm btn-ghost" id="select-all-btn">全選択</button>
+            <button class="btn-sm btn-primary" id="apply-btn">選択を適用</button>
+          </div>
+          <div class="apply-banner" id="apply-banner">
+            ✅ 選択したパッチを適用しました。JSONをダウンロードしてリポジトリに配置してください。
+          </div>
+          <div class="patch-list" id="patch-list"></div>
+        </div>
+      </div>
+
+      <!-- JSONタブ -->
+      <div class="tab-content" id="tab-json">
+        <div class="json-view">
+          <pre id="json-output">// 解析後にここにJSONが表示されます</pre>
+        </div>
+      </div>
+
+      <!-- 更新ログタブ -->
+      <div class="tab-content" id="tab-history">
+        <div class="json-view">
+          <pre id="history-output">// 更新ログがここに表示されます</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   ARCS AIスケジュール更新ツール
+   PDF/画像 → Claude API → JSON差分パッチ生成
+   ══════════════════════════════════════════════ */
+
+// ── 現在の全テーマID一覧（AIプロンプト用） ──
+const THEME_REGISTRY = {
+  icsi_detail: [
+    'icsi_biz_req','icsi_loi','icsi_gtm_contract','icsi_demand_kpi','icsi_stage_a',
+    'icsi_pmda_rs','icsi_kpi_judgement','icsi_clinical_trial','icsi_g6a','icsi_g6b',
+    'icsi_pmda_review','icsi_approval','icsi_lh_l1','icsi_handoff','icsi_irb',
+    'icsi_qms_design','icsi_qms_build','icsi_sl4_qa','icsi_md_design_process',
+    'icsi_proto_dev','icsi_oem_list','icsi_g4_oem','icsi_mass_prod','icsi_launch_ready',
+    'icsi_headcount','icsi_cs_readiness','icsi_lrg','icsi_stage_b'
+  ],
+  seishi: [
+    'seishi_sales_domestic','seishi_sales_overseas','seishi_req','seishi_senshin',
+    'seishi_data','seishi_pmda','seishi_clinical','seishi_qms','seishi_app_doc',
+    'seishi_yakuji_app','seishi_proto','seishi_data_collect','seishi_md_dev'
+  ],
+  ranshi: [
+    'ranshi_sales_1','ranshi_sales_2','ranshi_pmda','ranshi_yakuji_class',
+    'ranshi_clinical','ranshi_approval','ranshi_dev_req','ranshi_dev_test',
+    'ranshi_dev_opt','ranshi_dev_third','ranshi_ai_data','ranshi_ai_ethics','ranshi_dev_process'
+  ]
+};
+
+// 月インデックス対応表（プロンプト参照用）
+const MONTH_INDEX_GUIDE = `
+月インデックス変換表（基準: 2026/04 = idx 0）:
+  FY26: 2026/04=0, 2026/05=1, 2026/06=2, 2026/07=3, 2026/08=4, 2026/09=5
+        2026/10=6, 2026/11=7, 2026/12=8, 2027/01=9, 2027/02=10, 2027/03=11
+  FY27: 2027/04=12, 2027/05=13, 2027/06=14, 2027/07=15, 2027/08=16, 2027/09=17
+        2027/10=18, 2027/11=19, 2027/12=20, 2028/01=21, 2028/02=22, 2028/03=23
+  FY28: 2028/04=24, 2028/05=25, 2028/06=26, 2028/07=27, 2028/08=28, 2028/09=29
+        2028/10=30, 2028/11=31, 2028/12=32, 2029/01=33, 2029/02=34, 2029/03=35
+  FY29: 2029/04=36, 2029/05=37, 2029/06=38, 2029/07=39, 2029/08=40, 2029/09=41
+        2029/10=42, 2029/11=43, 2029/12=44
+`;
+
+// ── ログ ──
+const logArea = document.getElementById('log-area');
+function log(msg, type='info') {
+  const now = new Date().toLocaleTimeString('ja-JP', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const div = document.createElement('div');
+  div.className = 'log-line';
+  div.innerHTML = `<span class="log-time">${now}</span><span class="log-${type}">${msg}</span>`;
+  logArea.appendChild(div);
+  logArea.scrollTop = logArea.scrollHeight;
+}
+
+// ── プログレスバー ──
+const progressWrap = document.getElementById('progress-wrap');
+const progressBar  = document.getElementById('progress-bar');
+function setProgress(pct) {
+  progressWrap.classList.toggle('show', pct > 0 && pct < 100);
+  progressBar.style.width = pct + '%';
+  if (pct >= 100) setTimeout(() => progressWrap.classList.remove('show'), 600);
+}
+
+// ── ファイル管理 ──
+let currentFile = null;
+let currentBase64 = null;
+let currentMediaType = null;
+
+const dropZone   = document.getElementById('drop-zone');
+const fileInput  = document.getElementById('file-input');
+const filePreview= document.getElementById('file-preview');
+const fileThumb  = document.getElementById('file-thumb');
+const fileName   = document.getElementById('file-name');
+const fileSize   = document.getElementById('file-size');
+const fileRemove = document.getElementById('file-remove');
+const analyzeBtn = document.getElementById('analyze-btn');
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1024/1024).toFixed(1) + ' MB';
+}
+
+async function loadFile(file) {
+  currentFile = file;
+  const ext = file.name.split('.').pop().toLowerCase();
+  const isPDF = ext === 'pdf';
+  currentMediaType = isPDF ? 'application/pdf'
+    : ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg'
+    : ext === 'png' ? 'image/png'
+    : ext === 'webp' ? 'image/webp'
+    : ext === 'gif' ? 'image/gif'
+    : 'image/png';
+
+  // Base64変換
+  const arrayBuffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+  currentBase64 = btoa(binary);
+
+  // UI更新
+  fileName.textContent = file.name;
+  fileSize.textContent = formatSize(file.size);
+  if (!isPDF && currentMediaType.startsWith('image/')) {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    fileThumb.innerHTML = '';
+    fileThumb.appendChild(img);
+  } else {
+    fileThumb.textContent = isPDF ? '📄' : '🖼️';
+  }
+  filePreview.classList.add('show');
+  analyzeBtn.disabled = false;
+  log(`ファイル読み込み完了: ${file.name} (${formatSize(file.size)})`, 'ok');
+}
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+fileRemove.addEventListener('click', () => {
+  currentFile = currentBase64 = currentMediaType = null;
+  filePreview.classList.remove('show');
+  fileThumb.textContent = '📄';
+  fileInput.value = '';
+  analyzeBtn.disabled = true;
+});
+
+// ── タブ切り替え ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── AI解析 ──
+let generatedPatches = [];
+let currentJsonData = null;
+
+analyzeBtn.addEventListener('click', runAnalysis);
+
+async function runAnalysis() {
+  if (!currentBase64) return;
+
+  analyzeBtn.disabled = true;
+  analyzeBtn.textContent = '解析中...';
+  setProgress(5);
+
+  const target   = document.getElementById('target-select').value;
+  const memo     = document.getElementById('memo-input').value.trim();
+  const themeIds = THEME_REGISTRY[target] || THEME_REGISTRY[target.replace('_detail','')]|| [];
+
+  log(`解析開始: 対象=${target}, ファイル=${currentFile.name}`, 'info');
+  log('Claudeに送信中...', 'dim');
+  setProgress(20);
+
+  const systemPrompt = `あなたはARCS Inc.の医療AI事業スケジュール管理AIです。
+アップロードされたPDFまたは画像（スケジュール表）を読み取り、
+現在のJSONデータに対して必要な更新パッチを生成してください。
+
+【重要ルール】
+- 回答は必ずJSON配列のみ。前置き・説明・マークダウン記号は一切不要。
+- 変更のないテーマは含めない（差分のみ）。
+- 各パッチオブジェクトのキー: id, field, oldValue, newValue, reason, changeType
+
+【changeType の種類】
+- "status": green/yellow/red/progress/gray の変更
+- "period": 期間文字列の変更
+- "phase_shift": phases の start/end インデックス変更（遅延・前倒し）
+- "risk": riskLevel/riskComment の追加・変更
+- "delay": delayReason/delayMonths/delayDate の追加・変更
+- "next": 次の山場テキストの変更
+- "tasks": phases内のtasks配列の変更
+- "new_theme": 新しいテーマの追加（newValueにthemeオブジェクト全体）
+- "history": 更新ログ（history.jsonのentries先頭追加）
+
+${MONTH_INDEX_GUIDE}
+
+【対象ファイル: ${target}】
+既知のテーマID一覧:
+${themeIds.join(', ')}
+
+【出力フォーマット例】
+[
+  {
+    "id": "icsi_pmda_rs",
+    "field": "status",
+    "oldValue": "gray",
+    "newValue": "progress",
+    "reason": "PMDA RS申込みが2027年4月に着手",
+    "changeType": "status"
+  },
+  {
+    "id": "icsi_kpi_judgement",
+    "field": "phases",
+    "oldValue": {"start": 18, "end": 20},
+    "newValue": {"start": 20, "end": 22},
+    "reason": "KPI判定が2ヶ月遅延（IRB承認遅れのため）",
+    "changeType": "phase_shift"
+  },
+  {
+    "id": "history",
+    "field": "entry",
+    "oldValue": null,
+    "newValue": {"date": "2026-06-01", "product": "icsi", "type": "delay", "text": "KPI判定2ヶ月遅延"},
+    "reason": "更新ログに記録",
+    "changeType": "history"
+  }
+]`;
+
+  const userContent = [
+    {
+      type: currentMediaType === 'application/pdf' ? 'document' : 'image',
+      source: {
+        type: 'base64',
+        media_type: currentMediaType,
+        data: currentBase64
+      }
+    },
+    {
+      type: 'text',
+      text: `このスケジュール表を分析して、対象ファイル「${target}」のJSONデータを更新するパッチを生成してください。
+${memo ? `\n【担当者メモ】${memo}` : ''}
+変更された箇所のみを差分パッチとしてJSON配列で返してください。変更がない場合は空配列[]を返してください。`
+    }
+  ];
+
+  setProgress(40);
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userContent }]
+      })
+    });
+
+    setProgress(75);
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    const rawText = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
+
+    log('Claude応答受信。パース中...', 'info');
+    setProgress(90);
+
+    // JSON抽出（コードブロックを除去）
+    let jsonStr = rawText.trim();
+    const fenceMatch = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (fenceMatch) jsonStr = fenceMatch[1].trim();
+    const arrStart = jsonStr.indexOf('[');
+    const arrEnd   = jsonStr.lastIndexOf(']');
+    if (arrStart !== -1 && arrEnd !== -1) jsonStr = jsonStr.slice(arrStart, arrEnd + 1);
+
+    const patches = JSON.parse(jsonStr);
+
+    if (!Array.isArray(patches)) throw new Error('パッチがJSON配列ではありません');
+
+    generatedPatches = patches;
+    log(`パッチ生成完了: ${patches.length}件の変更を検出`, 'ok');
+    setProgress(100);
+    renderPatches(patches, target);
+
+  } catch (err) {
+    log(`エラー: ${err.message}`, 'error');
+    setProgress(0);
+    console.error(err);
+  } finally {
+    analyzeBtn.disabled = false;
+    analyzeBtn.textContent = 'AIで解析して差分を生成';
+  }
+}
+
+// ── パッチ描画 ──
+function renderPatches(patches, target) {
+  const emptyState  = document.getElementById('empty-state');
+  const patchPanel  = document.getElementById('patch-panel');
+  const patchList   = document.getElementById('patch-list');
+  const patchCount  = document.getElementById('patch-count');
+  const patchInfo   = document.getElementById('patch-info');
+  const applyBanner = document.getElementById('apply-banner');
+
+  emptyState.style.display  = 'none';
+  patchPanel.style.display  = 'flex';
+  patchPanel.style.flexDirection = 'column';
+  patchPanel.style.flex = '1';
+  patchPanel.style.overflow = 'hidden';
+  applyBanner.classList.remove('show');
+  patchList.innerHTML = '';
+  patchCount.textContent = patches.length;
+  patchInfo.innerHTML = `<strong>${patches.length}件</strong>の変更を検出 — 適用するパッチを選択してください`;
+
+  if (patches.length === 0) {
+    patchList.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">変更は検出されませんでした</div>';
+    return;
+  }
+
+  // タブ切り替え
+  document.querySelector('[data-tab="patches"]').click();
+
+  patches.forEach((patch, idx) => {
+    const card = document.createElement('div');
+    card.className = 'patch-card selected';
+    card.dataset.idx = idx;
+
+    const badgeClass = {
+      status: 'badge-status', period: 'badge-period', risk: 'badge-risk',
+      delay: 'badge-delay', phase_shift: 'badge-phase', new_theme: 'badge-new',
+      tasks: 'badge-tasks', history: 'badge-status', next: 'badge-period'
+    }[patch.changeType] || 'badge-status';
+
+    const changeLabel = {
+      status: 'ステータス', period: '期間', risk: 'リスク', delay: '遅延',
+      phase_shift: 'ゲート', new_theme: '新テーマ', tasks: 'タスク',
+      history: '更新ログ', next: '次の山場'
+    }[patch.changeType] || patch.changeType;
+
+    const oldStr = typeof patch.oldValue === 'object'
+      ? JSON.stringify(patch.oldValue, null, 1) : String(patch.oldValue ?? '—');
+    const newStr = typeof patch.newValue === 'object'
+      ? JSON.stringify(patch.newValue, null, 1) : String(patch.newValue ?? '—');
+    const isSame = oldStr === newStr;
+
+    card.innerHTML = `
+      <div class="patch-header" onclick="toggleCard(${idx})">
+        <div class="patch-check"></div>
+        <span class="patch-id">${patch.id}</span>
+        <span class="patch-name">${getThemeName(patch.id)}</span>
+        <span class="patch-badge ${badgeClass}">${changeLabel}</span>
+        <span class="patch-expand-toggle">▾</span>
+      </div>
+      <div class="patch-body">
+        <div class="diff-row">
+          <span class="diff-field">${patch.field}</span>
+          <span class="diff-old">${escHtml(oldStr)}</span>
+          <span class="diff-new ${isSame?'same':''}">${escHtml(newStr)}</span>
+        </div>
+        ${patch.reason ? `<div class="patch-reason">${escHtml(patch.reason)}</div>` : ''}
+      </div>`;
+
+    // チェック切り替え
+    card.querySelector('.patch-header').addEventListener('click', e => {
+      if (e.target.classList.contains('patch-expand-toggle')) return;
+      card.classList.toggle('selected');
+      updatePatchInfo();
+    });
+    // 展開切り替え
+    card.querySelector('.patch-expand-toggle').addEventListener('click', e => {
+      e.stopPropagation();
+      card.classList.toggle('expanded');
+    });
+    patchList.appendChild(card);
+  });
+
+  updatePatchInfo();
+}
+
+function toggleCard(idx) {
+  // patch-headerのonclickから呼ばれるが、
+  // expanded切り替えはexpand-toggleで行うので不要。
+}
+
+function updatePatchInfo() {
+  const selected = document.querySelectorAll('.patch-card.selected').length;
+  const total    = generatedPatches.length;
+  document.getElementById('patch-info').innerHTML =
+    `<strong>${selected}/${total}件</strong>選択中 — 「選択を適用」でJSONを生成します`;
+}
+
+function getThemeName(id) {
+  const names = {
+    icsi_biz_req:'要件定義・事業計画', icsi_loi:'LOI締結・研究連携',
+    icsi_gtm_contract:'契約雛形・価格設計', icsi_demand_kpi:'T-6M需要確度KPI',
+    icsi_stage_a:'Stage A', icsi_pmda_rs:'G1 PMDA RS受理',
+    icsi_kpi_judgement:'G3 KPI判定', icsi_clinical_trial:'廃棄卵子試験',
+    icsi_g6a:'G6a 書類完全性', icsi_g6b:'G6b PMDA申請受理',
+    icsi_pmda_review:'PMDA審査', icsi_approval:'承認取得→Day0',
+    icsi_lh_l1:'G2 LH Level1', icsi_handoff:'handoff候補確定',
+    icsi_irb:'IRB申請・承認', icsi_qms_design:'QMS基本設計',
+    icsi_qms_build:'QMS体制整備', icsi_sl4_qa:'SL-4 内部QA',
+    icsi_md_design_process:'医療機器設計開発', icsi_proto_dev:'プロトタイプ開発',
+    icsi_oem_list:'OEM候補リスト化', icsi_g4_oem:'G4 OEM候補成立',
+    icsi_mass_prod:'量産体制構築', icsi_launch_ready:'Launch Ready機体',
+    icsi_headcount:'Headcount unlock', icsi_cs_readiness:'CS readiness',
+    icsi_lrg:'LRG', icsi_stage_b:'Stage B stable sign-off',
+    history:'更新ログ(history.json)'
+  };
+  return names[id] || id;
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ── 全選択 ──
+document.getElementById('select-all-btn').addEventListener('click', () => {
+  const cards = document.querySelectorAll('.patch-card:not(.applied)');
+  const allSelected = [...cards].every(c => c.classList.contains('selected'));
+  cards.forEach(c => c.classList.toggle('selected', !allSelected));
+  updatePatchInfo();
+});
+
+// ── パッチ適用（JSONダウンロード生成） ──
+document.getElementById('apply-btn').addEventListener('click', () => {
+  const selected = [...document.querySelectorAll('.patch-card.selected')];
+  if (selected.length === 0) { alert('適用するパッチを選択してください'); return; }
+
+  const target    = document.getElementById('target-select').value;
+  const patches   = selected.map(c => generatedPatches[parseInt(c.dataset.idx)]);
+  const historyPatches = patches.filter(p => p.changeType === 'history');
+  const dataPatches    = patches.filter(p => p.changeType !== 'history');
+
+  // 結果JSON生成（差分情報として出力）
+  const output = {
+    _meta: {
+      generatedAt: new Date().toISOString(),
+      targetFile:  `data/${target}.json`,
+      patchCount:  dataPatches.length,
+      source:      currentFile?.name || 'unknown'
+    },
+    patches: dataPatches,
+    historyEntries: historyPatches.map(p => p.newValue).filter(Boolean)
+  };
+
+  const jsonStr = JSON.stringify(output, null, 2);
+  document.getElementById('json-output').textContent = jsonStr;
+
+  // ヒストリーログ表示
+  if (historyPatches.length > 0) {
+    document.getElementById('history-output').textContent =
+      JSON.stringify({ entries: historyPatches.map(p => p.newValue) }, null, 2);
+  }
+
+  // 適用マーク
+  selected.forEach(c => { c.classList.remove('selected'); c.classList.add('applied'); });
+  document.getElementById('apply-banner').classList.add('show');
+  log(`${patches.length}件のパッチをJSONに変換しました`, 'ok');
+
+  // JSONタブに切り替え
+  document.querySelector('[data-tab="json"]').click();
+
+  // ダウンロード
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `arcs_patch_${target}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  log(`パッチファイルをダウンロードしました: ${a.download}`, 'ok');
+  log('data/' + target + '.json に手動でマージするか、apply-patch.sh を使用してください', 'dim');
+});
+</script>
+</body>
+</html>
