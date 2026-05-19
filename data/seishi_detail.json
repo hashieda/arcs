@@ -128,12 +128,12 @@
           "name": "先進医療適用要否判断",
           "owner": "事業・薬事",
           "status": "gray",
-          "period": "2026/06 〜 2026/07",
+          "period": "2026/06 〜 2026/08",
           "phases": [
             {
               "phase": "sales",
               "start": 2,
-              "end": 3,
+              "end": 4,
               "label": "先進医療適用要否判断",
               "tasks": [
                 "★先進医療適用判断（2026/10）"
@@ -383,11 +383,11 @@
           "name": "医療機器要件定義（臨床）",
           "owner": "臨床・開発",
           "status": "gray",
-          "period": "2026/10 〜 2026/12",
+          "period": "2026/09 〜 2026/12",
           "phases": [
             {
               "phase": "clinical",
-              "start": 6,
+              "start": 5,
               "end": 8,
               "label": "医療機器要件定義（臨床）",
               "tasks": [
@@ -532,12 +532,12 @@
           "name": "PMDA相談（薬事）",
           "owner": "薬事",
           "status": "gray",
-          "period": "2026/08 〜 2026/12",
+          "period": "2026/08 〜 2027/06",
           "phases": [
             {
               "phase": "pmda",
               "start": 4,
-              "end": 8,
+              "end": 14,
               "label": "PMDA相談（薬事）",
               "tasks": [
                 "薬事戦略相談",
@@ -545,7 +545,28 @@
               ]
             }
           ],
-          "next": "2026/12: 相談完了"
+          "next": "2027/06: PMDA相談完了"
+        },
+        {
+          "id": "sd_yakuji_app",
+          "name": "★精子AI薬事申請完了",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2028/03",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 23,
+              "end": 23,
+              "label": "★精子AI薬事申請完了",
+              "tasks": [
+                "申請書類最終提出",
+                "PMDA提出",
+                "★精子AI薬事申請完了（2028/03末）"
+              ]
+            }
+          ],
+          "next": "★精子AI薬事申請完了（2028/03末）"
         }
       ]
     },
@@ -700,12 +721,12 @@
           "name": "精子AIアプリケーション・UI開発検討",
           "owner": "開発",
           "status": "progress",
-          "period": "2026/05 〜 2026/12",
+          "period": "2026/05 〜 2027/01",
           "phases": [
             {
               "phase": "dev",
               "start": 1,
-              "end": 8,
+              "end": 9,
               "label": "精子AIアプリケーション・UI開発検討",
               "tasks": [
                 "UI設計",
@@ -714,7 +735,7 @@
               ]
             }
           ],
-          "next": "2026/12: UI開発完了"
+          "next": "2027/01: UI開発検討完了"
         },
         {
           "id": "sd_md_dev_proc2",
