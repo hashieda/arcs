@@ -121,13 +121,13 @@ function riskCommentHTML(t) {
 function renderTimelineLane(meta) {
   const total = (meta.monthLabels || []).length;
   const yrs   = meta.yearLabels || [];
-  // year-end indices: every 12th month boundary (idx 11, 23, 35…) within range
   const yearEnds = meta.yearEnds || Array.from({length: yrs.length - 1}, (_, i) => (i + 1) * 12 - 1);
 
-  // year-row: each label spans its 12 months proportionally
-  let h = '<div class="timeline-lane"><div class="year-row">';
+  let h = '<div class="timeline-lane">';
+  h += `<div class="year-row" style="grid-template-columns:repeat(${yrs.length},1fr)">`;
   yrs.forEach(y => { h += `<div>${y}</div>`; });
-  h += '</div><div class="month-row-h">';
+  h += '</div>';
+  h += `<div class="month-row-h" style="grid-template-columns:repeat(${total},1fr)">`;
   (meta.monthLabels || []).forEach((m, i) => {
     const cls = [];
     if (i === meta.todayMonthIdx) cls.push('is-current');
@@ -141,7 +141,8 @@ function renderTimelineLane(meta) {
 function renderEventRow(meta) {
   const total    = (meta.monthLabels || []).length;
   const yearEnds = meta.yearEnds || Array.from({length: (meta.yearLabels||[]).length - 1}, (_, i) => (i+1)*12-1);
-  let h = '<div class="event-row"><div class="event-label">Event</div><div class="event-track">';
+  let h = '<div class="event-row"><div class="event-label">Event</div>';
+  h += `<div class="event-track" style="grid-template-columns:repeat(${total},1fr)">`;
   for (let m = 0; m < total; m++) {
     const cls = ['event-cell'];
     if (yearEnds.includes(m))    cls.push('year-end');
