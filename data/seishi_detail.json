@@ -1,5 +1,5 @@
 {
-  "_comment": "精子AI 詳細スケジュール。営業・事業 / 臨床開発 / 薬事品証 / 開発 の4カテゴリで細分化。",
+  "_comment": "精子AI詳細スケジュール。画像スケジュール表v1より更新。2026/04(idx0)〜2028/03(idx23)。",
   "name": "🧬 精子AI 詳細スケジュール",
   "headerClass": "seishi",
   "categories": [
@@ -7,129 +7,747 @@
       "cat": "営業・事業",
       "catClass": "sales",
       "themes": [
-        { "id": "sd_ruo_plan", "name": "RUO販売計画", "owner": "営業企画", "status": "progress",
-          "period": "2026/04", "phases": [{ "phase": "sales", "start": 0, "end": 0, "label": "RUO販売計画" }],
-          "next": "4月：完了", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_needs", "name": "RUOニーズ調査", "owner": "営業企画", "status": "progress",
-          "period": "2026/04", "phases": [{ "phase": "sales", "start": 0, "end": 0, "label": "RUOニーズ調査" }],
-          "next": "4月：継続", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_prep", "name": "RUO販売準備", "owner": "営業", "status": "gray",
-          "period": "2026/05 〜 2026/06", "phases": [{ "phase": "sales", "start": 1, "end": 2, "label": "RUO販売準備" }],
-          "next": "5月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_start", "name": "RUO販売開始", "owner": "営業", "status": "gray",
-          "period": "2026/06", "phases": [{ "phase": "sales", "start": 2, "end": 2, "label": "RUO販売開始" }],
-          "next": "6月予定", "delayReason": "", "riskComment": "RUO仕様変更（5月意思決定）の結果次第で販売開始が後ろ倒しのリスク。", "riskLevel": "watch" },
-        { "id": "sd_ruo_intro", "name": "RUO販売※導入実績", "owner": "営業", "status": "gray",
-          "period": "2026/06 〜 2027/03", "phases": [{ "phase": "sales", "start": 2, "end": 11, "label": "RUO販売※導入実績" }],
-          "next": "導入実績獲得", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_revenue", "name": "RUO販売※売上計上", "owner": "営業", "status": "gray",
-          "period": "2027/04 〜 2028/03", "phases": [{ "phase": "sales", "start": 12, "end": 23, "label": "RUO販売※売上計上" }],
-          "next": "2027/04〜", "delayReason": "", "riskComment": "売上5900万（2027/08）目標。導入実績の進捗が売上計上に直結。", "riskLevel": "watch" },
-        { "id": "sd_md_needs", "name": "医療機器ニーズ調査・事業計画作成", "owner": "事業企画", "status": "gray",
-          "period": "2026/06 〜 2026/08", "phases": [{ "phase": "sales", "start": 2, "end": 4, "label": "医療機器ニーズ調査・事業計画作成" }],
-          "next": "6月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_req", "name": "医療機器要件定義", "owner": "事業／薬事", "status": "gray",
-          "period": "2026/09 〜 2026/12", "phases": [{ "phase": "sales", "start": 5, "end": 8, "label": "医療機器要件定義" }],
-          "next": "9月：着手", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_overseas", "name": "海外展開準備", "owner": "営業", "status": "gray",
-          "period": "2026/09 〜 2028/03", "phases": [{ "phase": "sales", "start": 5, "end": 23, "label": "海外展開準備" }],
-          "next": "9月：本格化", "delayReason": "", "riskComment": "", "riskLevel": "" }
+        {
+          "id": "sd_ruo_plan",
+          "name": "RUO販売計画",
+          "owner": "営業企画",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 0,
+              "end": 0,
+              "label": "RUO販売計画",
+              "tasks": [
+                "ターゲット顧客像確定",
+                "価格モデル決定"
+              ]
+            }
+          ],
+          "next": "4月完了"
+        },
+        {
+          "id": "sd_ruo_needs",
+          "name": "RUOニーズ調査",
+          "owner": "営業企画",
+          "status": "progress",
+          "period": "2026/04",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 0,
+              "end": 0,
+              "label": "RUOニーズ調査",
+              "tasks": [
+                "市場調査",
+                "顧客ヒアリング"
+              ]
+            }
+          ],
+          "next": "4月完了"
+        },
+        {
+          "id": "sd_ruo_prep",
+          "name": "RUO販売準備",
+          "owner": "営業",
+          "status": "progress",
+          "period": "2026/05 〜 2026/06",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 1,
+              "end": 2,
+              "label": "RUO販売準備",
+              "tasks": [
+                "販促資材作成",
+                "営業体制整備"
+              ]
+            }
+          ],
+          "next": "6月: 販売開始"
+        },
+        {
+          "id": "sd_ruo_start",
+          "name": "RUO販売開始",
+          "owner": "営業",
+          "status": "gray",
+          "period": "2026/06",
+          "phases": [
+            {
+              "phase": "launch",
+              "start": 2,
+              "end": 2,
+              "label": "RUO販売開始"
+            }
+          ],
+          "next": "2026/06: 販売開始"
+        },
+        {
+          "id": "sd_ruo_intro",
+          "name": "RUO販売※導入実績",
+          "owner": "営業",
+          "status": "gray",
+          "period": "2026/06 〜 2027/03",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 2,
+              "end": 11,
+              "label": "RUO販売※導入実績",
+              "tasks": [
+                "導入施設拡大",
+                "実績創出"
+              ]
+            }
+          ],
+          "next": "★精子AI導入実績達成（2027/01）"
+        },
+        {
+          "id": "sd_ruo_revenue",
+          "name": "RUO販売※売上計上",
+          "owner": "営業",
+          "status": "gray",
+          "period": "2027/04 〜 2028/03",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 12,
+              "end": 23,
+              "label": "RUO販売※売上計上",
+              "tasks": [
+                "★売上5900万（2027/08目標）",
+                "継続拡販"
+              ]
+            }
+          ],
+          "next": "★売上5900万（2027/08）"
+        },
+        {
+          "id": "sd_senshin_judge",
+          "name": "先進医療適用要否判断",
+          "owner": "事業・薬事",
+          "status": "gray",
+          "period": "2026/06 〜 2026/07",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 2,
+              "end": 3,
+              "label": "先進医療適用要否判断",
+              "tasks": [
+                "★先進医療適用判断（2026/10）"
+              ]
+            }
+          ],
+          "next": "2026/07: 判断完了"
+        },
+        {
+          "id": "sd_md_needs",
+          "name": "医療機器ニーズ調査・事業計画作成",
+          "owner": "営業企画",
+          "status": "gray",
+          "period": "2026/06 〜 2026/08",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 2,
+              "end": 4,
+              "label": "医療機器ニーズ調査・事業計画作成",
+              "tasks": [
+                "市場ニーズ調査",
+                "事業計画作成"
+              ]
+            }
+          ],
+          "next": "2026/08: 計画確定"
+        },
+        {
+          "id": "sd_md_req",
+          "name": "医療機器要件定義",
+          "owner": "事業・開発",
+          "status": "gray",
+          "period": "2026/09 〜 2026/12",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 5,
+              "end": 8,
+              "label": "医療機器要件定義",
+              "tasks": [
+                "機能要件整理",
+                "非機能要件整理",
+                "★精子AI製品管理方法決定（2026/07）"
+              ]
+            }
+          ],
+          "next": "2026/12: 要件定義完了"
+        },
+        {
+          "id": "sd_overseas",
+          "name": "海外展開準備",
+          "owner": "事業",
+          "status": "gray",
+          "period": "2026/09 〜 2028/03",
+          "phases": [
+            {
+              "phase": "sales",
+              "start": 5,
+              "end": 23,
+              "label": "海外展開準備",
+              "tasks": [
+                "海外市場調査",
+                "規制対応",
+                "★精子AI海外進出有無決定（2026/06）"
+              ]
+            }
+          ],
+          "next": "2026/06: 海外進出方針決定"
+        }
       ]
     },
     {
       "cat": "臨床開発",
       "catClass": "clinical",
       "themes": [
-        { "id": "sd_senshin_judge", "name": "先進医療適用要否判断", "owner": "臨床", "status": "gray",
-          "period": "2026/06 〜 2026/07", "phases": [{ "phase": "clinical", "start": 2, "end": 3, "label": "先進医療適用要否判断" }],
-          "next": "6月：判断", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_clinical", "name": "RUO臨床研究検討※導入実績創出", "owner": "臨床", "status": "progress",
-          "period": "2026/04 〜 2026/06", "phases": [{ "phase": "clinical", "start": 0, "end": 2, "label": "RUO臨床研究検討※導入実績創出" }],
-          "next": "4月：着手", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_req2", "name": "医療機器要件定義", "owner": "臨床／薬事", "status": "gray",
-          "period": "2026/10 〜 2026/12", "phases": [{ "phase": "clinical", "start": 6, "end": 8, "label": "医療機器要件定義" }],
-          "next": "10月〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ai_train", "name": "精子AI学習データ収集", "owner": "臨床", "status": "progress",
-          "period": "2026/05 〜 2026/12", "phases": [{ "phase": "clinical", "start": 1, "end": 8, "label": "精子AI学習データ収集" }],
-          "next": "5月：開始", "delayReason": "", "riskComment": "学習データ収集の遅延が精子AI開発全体のクリティカルパス。", "riskLevel": "watch" },
-        { "id": "sd_ai_eval", "name": "精子AI評価データ収集", "owner": "臨床", "status": "gray",
-          "period": "2027/01 〜 2027/06", "phases": [{ "phase": "clinical", "start": 9, "end": 14, "label": "精子AI評価データ収集" }],
-          "next": "2027/01〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_pmda2", "name": "PMDA相談", "owner": "薬事", "status": "progress",
-          "period": "2026/10 〜 2027/06", "phases": [{ "phase": "pmda", "start": 6, "end": 14, "label": "PMDA相談" }],
-          "next": "10月：本格化", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_pre_test", "name": "臨床性能評プレテスト", "owner": "臨床", "status": "gray",
-          "period": "2026/06 〜 2027/03", "phases": [{ "phase": "clinical", "start": 2, "end": 11, "label": "臨床性能評プレテスト" }],
-          "next": "6月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_eval_ana", "name": "臨床性能評価計画実施解析", "owner": "臨床", "status": "gray",
-          "period": "2027/04 〜 2028/03", "phases": [{ "phase": "clinical", "start": 12, "end": 23, "label": "臨床性能評価計画実施解析" }],
-          "next": "2027/04〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_useful", "name": "医療機器有用性検討", "owner": "臨床", "status": "progress",
-          "period": "2026/04 〜 2026/06", "phases": [{ "phase": "clinical", "start": 0, "end": 2, "label": "医療機器有用性検討" }],
-          "next": "4月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_clinical_run", "name": "臨床研究検討・実施", "owner": "臨床", "status": "gray",
-          "period": "2026/06 〜 2026/12", "phases": [{ "phase": "clinical", "start": 2, "end": 8, "label": "臨床研究検討・実施" }],
-          "next": "6月：着手", "delayReason": "", "riskComment": "", "riskLevel": "" }
+        {
+          "id": "sd_ruo_clinical",
+          "name": "RUO臨床研究検討※導入実績創出",
+          "owner": "臨床",
+          "status": "progress",
+          "period": "2026/04 〜 2026/06",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 0,
+              "end": 2,
+              "label": "RUO臨床研究検討※導入実績創出",
+              "tasks": [
+                "臨床研究計画立案",
+                "施設選定",
+                "★RUO販売実績創出（2026/06）"
+              ]
+            }
+          ],
+          "next": "2026/06: 実績創出"
+        },
+        {
+          "id": "sd_ai_train",
+          "name": "精子AI学習データ収集",
+          "owner": "開発・臨床",
+          "status": "progress",
+          "period": "2026/05 〜 2026/12",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 1,
+              "end": 8,
+              "label": "精子AI学習データ収集",
+              "tasks": [
+                "データ収集計画",
+                "医療機関連携",
+                "データ品質管理"
+              ]
+            }
+          ],
+          "next": "2026/12: 学習データ収集完了"
+        },
+        {
+          "id": "sd_ai_eval",
+          "name": "精子AI評価データ収集",
+          "owner": "開発・臨床",
+          "status": "gray",
+          "period": "2027/01 〜 2027/06",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 9,
+              "end": 14,
+              "label": "精子AI評価データ収集",
+              "tasks": [
+                "評価データ収集",
+                "有用性検証",
+                "★精子AI有用性検証完了（2027/03）"
+              ]
+            }
+          ],
+          "next": "★精子AI有用性検証完了（2027/03）"
+        },
+        {
+          "id": "sd_pmda2",
+          "name": "PMDA相談",
+          "owner": "薬事・臨床",
+          "status": "progress",
+          "period": "2026/10 〜 2027/06",
+          "phases": [
+            {
+              "phase": "pmda",
+              "start": 6,
+              "end": 14,
+              "label": "PMDA相談",
+              "tasks": [
+                "事前面談",
+                "対面助言",
+                "相談継続"
+              ]
+            }
+          ],
+          "next": "2027/06: PMDA相談完了"
+        },
+        {
+          "id": "sd_pre_test",
+          "name": "臨床性能評プレテスト",
+          "owner": "臨床",
+          "status": "gray",
+          "period": "2026/06 〜 2027/03",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 2,
+              "end": 11,
+              "label": "臨床性能評プレテスト",
+              "tasks": [
+                "プレテスト計画",
+                "試験実施",
+                "結果解析"
+              ]
+            }
+          ],
+          "next": "2027/03: プレテスト完了"
+        },
+        {
+          "id": "sd_eval_ana",
+          "name": "臨床性能評価計画実施解析",
+          "owner": "臨床・薬事",
+          "status": "gray",
+          "period": "2027/04 〜 2028/03",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 12,
+              "end": 23,
+              "label": "臨床性能評価計画実施解析",
+              "tasks": [
+                "評価計画策定",
+                "症例組入れ",
+                "中間・最終解析",
+                "★精子AI先進医療認定（2027/06）"
+              ]
+            }
+          ],
+          "next": "★精子AI先進医療認定（2027/06）"
+        },
+        {
+          "id": "sd_md_useful",
+          "name": "医療機器有用性検討",
+          "owner": "臨床・事業",
+          "status": "progress",
+          "period": "2026/04 〜 2026/06",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 0,
+              "end": 2,
+              "label": "医療機器有用性検討",
+              "tasks": [
+                "有用性評価設計",
+                "臨床エビデンス整理"
+              ]
+            }
+          ],
+          "next": "2026/06: 有用性検討完了"
+        },
+        {
+          "id": "sd_clinical_run",
+          "name": "臨床研究検討・実施",
+          "owner": "臨床",
+          "status": "gray",
+          "period": "2026/06 〜 2026/12",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 2,
+              "end": 8,
+              "label": "臨床研究検討・実施",
+              "tasks": [
+                "研究計画策定",
+                "IRB申請",
+                "研究実施"
+              ]
+            }
+          ],
+          "next": "2026/12: 臨床研究完了"
+        },
+        {
+          "id": "sd_md_req2",
+          "name": "医療機器要件定義（臨床）",
+          "owner": "臨床・開発",
+          "status": "gray",
+          "period": "2026/10 〜 2026/12",
+          "phases": [
+            {
+              "phase": "clinical",
+              "start": 6,
+              "end": 8,
+              "label": "医療機器要件定義（臨床）",
+              "tasks": [
+                "臨床要件整理",
+                "性能基準策定"
+              ]
+            }
+          ],
+          "next": "2026/12: 臨床要件確定"
+        }
       ]
     },
     {
       "cat": "薬事品証",
       "catClass": "yakuji",
       "themes": [
-        { "id": "sd_ruo_qa", "name": "RUO品質管理体制構築", "owner": "品証", "status": "progress",
-          "period": "2026/05 〜 2026/07", "phases": [{ "phase": "qms", "start": 1, "end": 3, "label": "RUO品質管理体制構築" }],
-          "next": "5月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_req_yakuji", "name": "医療機器要件定義", "owner": "薬事", "status": "gray",
-          "period": "2026/09 〜 2026/12", "phases": [{ "phase": "yakuji", "start": 5, "end": 8, "label": "医療機器要件定義" }],
-          "next": "9月〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_overseas_reg", "name": "海外規制要求調査", "owner": "薬事", "status": "gray",
-          "period": "2026/06 〜 2026/09", "phases": [{ "phase": "yakuji", "start": 2, "end": 5, "label": "海外規制要求調査" }],
-          "next": "6月：着手", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_qms_run", "name": "QMS体制構築・運用開始", "owner": "品証", "status": "gray",
-          "period": "2026/06 〜 2026/12", "phases": [{ "phase": "qms", "start": 2, "end": 8, "label": "QMS体制構築・運用開始" }],
-          "next": "6月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_strategy", "name": "医療機器出口戦略決定", "owner": "薬事", "status": "gray",
-          "period": "2027/01 〜 2027/04", "phases": [{ "phase": "yakuji", "start": 9, "end": 12, "label": "医療機器出口戦略決定" }],
-          "next": "2027/01〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_design", "name": "医療機器設計開発プロセス", "owner": "開発／品証", "status": "gray",
-          "period": "2027/04 〜 2028/03", "phases": [{ "phase": "yakuji", "start": 12, "end": 23, "label": "医療機器設計開発プロセス" }],
-          "next": "2027/04〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_pmda3", "name": "PMDA相談", "owner": "薬事", "status": "gray",
-          "period": "2026/08 〜 2026/12", "phases": [{ "phase": "pmda", "start": 4, "end": 8, "label": "PMDA相談" }],
-          "next": "8月〜", "delayReason": "", "riskComment": "", "riskLevel": "" }
+        {
+          "id": "sd_ruo_qa",
+          "name": "RUO品質管理体制構築",
+          "owner": "品証",
+          "status": "progress",
+          "period": "2026/05 〜 2026/07",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 1,
+              "end": 3,
+              "label": "RUO品質管理体制構築",
+              "tasks": [
+                "品質マニュアル整備",
+                "手順書作成"
+              ]
+            }
+          ],
+          "next": "2026/07: RUO品質体制完了"
+        },
+        {
+          "id": "sd_overseas_reg",
+          "name": "海外規制要求調査",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2026/06 〜 2026/09",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 2,
+              "end": 5,
+              "label": "海外規制要求調査",
+              "tasks": [
+                "主要市場規制調査",
+                "CE/FDA要件整理"
+              ]
+            }
+          ],
+          "next": "2026/09: 調査完了"
+        },
+        {
+          "id": "sd_qms_run",
+          "name": "QMS体制構築・運用開始",
+          "owner": "品証",
+          "status": "gray",
+          "period": "2026/06 〜 2026/12",
+          "phases": [
+            {
+              "phase": "qms",
+              "start": 2,
+              "end": 8,
+              "label": "QMS体制構築・運用開始",
+              "tasks": [
+                "QMS設計",
+                "文書整備",
+                "運用開始"
+              ]
+            }
+          ],
+          "next": "2026/12: QMS運用開始"
+        },
+        {
+          "id": "sd_md_req_yakuji",
+          "name": "医療機器要件定義（薬事）",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2026/09 〜 2026/12",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 5,
+              "end": 8,
+              "label": "医療機器要件定義（薬事）",
+              "tasks": [
+                "薬事要件整理",
+                "クラス分類検討"
+              ]
+            }
+          ],
+          "next": "2026/12: 薬事要件確定"
+        },
+        {
+          "id": "sd_md_strategy",
+          "name": "医療機器出口戦略決定",
+          "owner": "事業・薬事",
+          "status": "gray",
+          "period": "2027/01 〜 2027/04",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 9,
+              "end": 12,
+              "label": "医療機器出口戦略決定",
+              "tasks": [
+                "国内・海外戦略確定",
+                "薬事ルート決定"
+              ]
+            }
+          ],
+          "next": "2027/04: 戦略決定"
+        },
+        {
+          "id": "sd_md_design",
+          "name": "医療機器設計開発プロセス",
+          "owner": "開発・品証",
+          "status": "gray",
+          "period": "2027/04 〜 2028/03",
+          "phases": [
+            {
+              "phase": "yakuji",
+              "start": 12,
+              "end": 23,
+              "label": "医療機器設計開発プロセス",
+              "tasks": [
+                "QMS準拠設計",
+                "DR1〜DR3",
+                "V&V",
+                "★NEDO終了（2027/03）"
+              ]
+            }
+          ],
+          "next": "★NEDO終了（2027/03）→設計開発移行"
+        },
+        {
+          "id": "sd_pmda3",
+          "name": "PMDA相談（薬事）",
+          "owner": "薬事",
+          "status": "gray",
+          "period": "2026/08 〜 2026/12",
+          "phases": [
+            {
+              "phase": "pmda",
+              "start": 4,
+              "end": 8,
+              "label": "PMDA相談（薬事）",
+              "tasks": [
+                "薬事戦略相談",
+                "対面助言"
+              ]
+            }
+          ],
+          "next": "2026/12: 相談完了"
+        }
       ]
     },
     {
       "cat": "開発",
       "catClass": "dev",
       "themes": [
-        { "id": "sd_ruo_spec", "name": "RUO仕様変更", "owner": "開発", "status": "progress",
-          "period": "2026/05 〜 2026/06", "phases": [{ "phase": "dev", "start": 1, "end": 2, "label": "RUO仕様変更" }],
-          "next": "5月：着手", "delayReason": "", "riskComment": "5月のRUO販売意思決定（仕様変更判断含む）の結果が前提。", "riskLevel": "watch" },
-        { "id": "sd_verify", "name": "検証試験", "owner": "開発", "status": "gray",
-          "period": "2026/07", "phases": [{ "phase": "dev", "start": 3, "end": 3, "label": "検証試験" }],
-          "next": "7月予定", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ruo_mfg", "name": "RUO製造・市販後対応", "owner": "開発", "status": "gray",
-          "period": "2026/08 〜 2026/12", "phases": [{ "phase": "dev", "start": 4, "end": 8, "label": "RUO製造・市販後対応" }],
-          "next": "8月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_req3", "name": "医療機器要件定義", "owner": "開発", "status": "gray",
-          "period": "2026/09 〜 2026/12", "phases": [{ "phase": "dev", "start": 5, "end": 8, "label": "医療機器要件定義" }],
-          "next": "9月〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_multi", "name": "複数倍率・複数機種対応", "owner": "開発", "status": "gray",
-          "period": "2026/06 〜 2026/09", "phases": [{ "phase": "dev", "start": 2, "end": 5, "label": "複数倍率・複数機種対応" }],
-          "next": "6月〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ai_dev", "name": "精子AI開発", "owner": "開発", "status": "progress",
-          "period": "2026/05 〜 2026/12", "phases": [{ "phase": "dev", "start": 1, "end": 8, "label": "精子AI開発" }],
-          "next": "5月：着手", "delayReason": "", "riskComment": "学習データ収集の進捗に依存。データ遅延時は開発も連動して遅延。", "riskLevel": "watch" },
-        { "id": "sd_ai_ethics2", "name": "精子AI倫理試験", "owner": "開発／臨床", "status": "gray",
-          "period": "2027/01 〜 2027/06", "phases": [{ "phase": "dev", "start": 9, "end": 14, "label": "精子AI倫理試験" }],
-          "next": "2027/01〜", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_ai_ui", "name": "精子AIアプリケーション・UI 開発検討", "owner": "開発", "status": "progress",
-          "period": "2026/05 〜 2026/12", "phases": [{ "phase": "dev", "start": 1, "end": 8, "label": "精子AIアプリケーション・UI 開発検討" }],
-          "next": "5月：開始", "delayReason": "", "riskComment": "", "riskLevel": "" },
-        { "id": "sd_md_dev_proc2", "name": "医療機器設計開発プロセス", "owner": "開発", "status": "gray",
-          "period": "2027/01 〜 2028/03", "phases": [{ "phase": "dev", "start": 9, "end": 23, "label": "医療機器設計開発プロセス" }],
-          "next": "2027/01〜", "delayReason": "", "riskComment": "", "riskLevel": "" }
+        {
+          "id": "sd_ruo_spec",
+          "name": "RUO仕様変更",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/05 〜 2026/06",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 1,
+              "end": 2,
+              "label": "RUO仕様変更",
+              "tasks": [
+                "仕様変更検討",
+                "実装"
+              ]
+            }
+          ],
+          "next": "2026/06: 仕様変更完了"
+        },
+        {
+          "id": "sd_verify",
+          "name": "検証試験",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/07",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 3,
+              "end": 3,
+              "label": "検証試験",
+              "tasks": [
+                "性能検証",
+                "結果確認"
+              ]
+            }
+          ],
+          "next": "2026/07: 検証完了"
+        },
+        {
+          "id": "sd_ruo_mfg",
+          "name": "RUO製造・市販後対応",
+          "owner": "開発・品証",
+          "status": "gray",
+          "period": "2026/08 〜 2026/12",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 4,
+              "end": 8,
+              "label": "RUO製造・市販後対応",
+              "tasks": [
+                "量産対応",
+                "市販後調査設計"
+              ]
+            }
+          ],
+          "next": "2026/12: 量産体制完了"
+        },
+        {
+          "id": "sd_md_req3",
+          "name": "医療機器要件定義（開発）",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/09 〜 2026/12",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 5,
+              "end": 8,
+              "label": "医療機器要件定義（開発）",
+              "tasks": [
+                "開発要件整理",
+                "アーキテクチャ設計"
+              ]
+            }
+          ],
+          "next": "2026/12: 開発要件確定"
+        },
+        {
+          "id": "sd_multi",
+          "name": "複数倍率・複数機種対応",
+          "owner": "開発",
+          "status": "gray",
+          "period": "2026/06 〜 2026/09",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 2,
+              "end": 5,
+              "label": "複数倍率・複数機種対応",
+              "tasks": [
+                "マルチ倍率対応",
+                "機種別最適化"
+              ]
+            }
+          ],
+          "next": "2026/09: 対応完了"
+        },
+        {
+          "id": "sd_ai_dev",
+          "name": "精子AI開発",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/05 〜 2026/12",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 1,
+              "end": 8,
+              "label": "精子AI開発",
+              "tasks": [
+                "アルゴリズム実装",
+                "モデル学習・評価",
+                "精度改善"
+              ]
+            }
+          ],
+          "next": "2026/12: AI開発完了"
+        },
+        {
+          "id": "sd_ai_ethics2",
+          "name": "精子AI倫理試験",
+          "owner": "開発・臨床",
+          "status": "gray",
+          "period": "2027/01 〜 2027/06",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 9,
+              "end": 14,
+              "label": "精子AI倫理試験",
+              "tasks": [
+                "倫理委員会申請",
+                "倫理審査対応",
+                "★精子AI先進医療認定（2027/06）"
+              ]
+            }
+          ],
+          "next": "★精子AI先進医療認定（2027/06）"
+        },
+        {
+          "id": "sd_ai_ui",
+          "name": "精子AIアプリケーション・UI開発検討",
+          "owner": "開発",
+          "status": "progress",
+          "period": "2026/05 〜 2026/12",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 1,
+              "end": 8,
+              "label": "精子AIアプリケーション・UI開発検討",
+              "tasks": [
+                "UI設計",
+                "UXプロト",
+                "ユーザビリティ検証"
+              ]
+            }
+          ],
+          "next": "2026/12: UI開発完了"
+        },
+        {
+          "id": "sd_md_dev_proc2",
+          "name": "医療機器設計開発プロセス（開発）",
+          "owner": "開発・品証",
+          "status": "gray",
+          "period": "2027/01 〜 2028/03",
+          "phases": [
+            {
+              "phase": "dev",
+              "start": 9,
+              "end": 11,
+              "label": "設計（DR1）",
+              "tasks": [
+                "設計フェーズ",
+                "DR1"
+              ]
+            },
+            {
+              "phase": "dev",
+              "start": 12,
+              "end": 23,
+              "label": "開発・試験（DR2〜DR3）",
+              "tasks": [
+                "DR2",
+                "開発・試験",
+                "DR3",
+                "★精子AIプロトタイプ完成（2027/12）"
+              ]
+            }
+          ],
+          "next": "★精子AIプロトタイプ完成（2027/12）"
+        }
       ]
     }
   ]
