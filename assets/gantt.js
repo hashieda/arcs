@@ -214,9 +214,12 @@ function renderProductBlock(meta, prod) {
 /* ─── TODAYライン ─── */
 function addTodayLine(meta) {
   const total = (meta.monthLabels || []).length;
+  const yearCount = (meta.yearLabels || []).length;
   document.querySelectorAll('.gantt-container').forEach(c => {
-    // グリッド線用CSS変数をコンテナに注入
+    // グリッド列数をCSS変数で全グリッドに統一注入
     c.style.setProperty('--gantt-cols-pct', `calc(100% / ${total})`);
+    c.style.setProperty('--gantt-month-count', total);
+    c.style.setProperty('--gantt-year-count', yearCount);
     const g = c.querySelector('.theme-gantt');
     if (!g) return;
     const cR = c.getBoundingClientRect(), gR = g.getBoundingClientRect();
@@ -302,6 +305,17 @@ function showLoading(id) {
 async function initView(opts) {
   _tt = document.getElementById('custom-tooltip');
 
+  /* CSS変数をコンテナに即注入するヘルパー */
+  function setGridVars(meta) {
+    const total = (meta.monthLabels || []).length;
+    const yearCount = (meta.yearLabels || []).length;
+    document.querySelectorAll('.gantt-container').forEach(c => {
+      c.style.setProperty('--gantt-month-count', total);
+      c.style.setProperty('--gantt-year-count', yearCount);
+      c.style.setProperty('--gantt-cols-pct', `calc(100% / ${total})`);
+    });
+  }
+
   if (opts.mode === 'overview') {
     showLoading('gantt-overview');
     try {
@@ -323,6 +337,7 @@ async function initView(opts) {
         + renderProductBlock(meta, seishi)
         + renderProductBlock(meta, icsi);
 
+      setGridVars(meta);
       renderHistory(history);
       attachTooltips(); setupFilter();
       setTimeout(() => addTodayLine(meta), 100);
@@ -359,6 +374,7 @@ async function initView(opts) {
       c.innerHTML = renderGanttHeader(meta) + renderEventRow(meta)
         + renderProductBlock(meta, product);
 
+      setGridVars(meta);
       renderHistory(history);
       attachTooltips(); setupFilter();
       setTimeout(() => addTodayLine(meta), 100);
