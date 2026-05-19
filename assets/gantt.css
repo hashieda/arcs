@@ -208,7 +208,8 @@ body {
 }
 .year-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  /* 年度数は gantt.js が --gantt-year-count を注入。フォールバック2 */
+  grid-template-columns: repeat(var(--gantt-year-count, 2), 1fr);
   background: var(--hdr-navy);
 }
 .year-row > div {
@@ -225,7 +226,8 @@ body {
 
 .month-row-h {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--month-cell-min), 1fr));
+  /* 列数は gantt.js が --gantt-month-count を注入。フォールバック24 */
+  grid-template-columns: repeat(var(--gantt-month-count, 24), 1fr);
   background: #1E40AF;
 }
 .month-row-h > div {
@@ -272,7 +274,7 @@ body {
   padding: 8px 0;
   min-height: 70px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--month-cell-min), 1fr));
+  grid-template-columns: repeat(var(--gantt-month-count, 24), 1fr);
 }
 .event-cell {
   border-right: 1px dashed var(--border-light);
