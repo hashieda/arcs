@@ -18,7 +18,7 @@
               "phase": "sales",
               "start": 0,
               "end": 0,
-              "label": "RUO販売計画",
+              "label": "★★RUO販売計画",
               "tasks": [
                 "ターゲット顧客像確定",
                 "価格モデル決定"
@@ -88,12 +88,12 @@
           "name": "RUO販売※導入実績",
           "owner": "営業",
           "status": "gray",
-          "period": "2026/06 〜 2027/03",
+          "period": "2026/06 〜 2027/05",
           "phases": [
             {
               "phase": "sales",
               "start": 2,
-              "end": 11,
+              "end": 13,
               "label": "RUO販売※導入実績",
               "tasks": [
                 "導入施設拡大",
@@ -101,7 +101,7 @@
               ]
             }
           ],
-          "next": "★精子AI導入実績達成（2027/01）"
+          "next": "★精子AI導入実績達成（2027/01）→ 2027/05まで継続"
         },
         {
           "id": "sd_ruo_revenue",
